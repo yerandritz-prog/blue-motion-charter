@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Motion Charter &middot; Palma de Mallorca</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0A3D6B;
+  --navy-light:#1565A0;
+  --blue:#1E88E5;
+  --blue-pale:#DBEAFE;
+  --cyan:#0097A7;
+  --cream:#FAFAF8;
+  --white:#FFFFFF;
+  --sand:#F5F0E8;
+  --text:#1C1C1C;
+  --text-muted:#6B7280;
+  --border:#E5E7EB;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,61,107,0.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.1);transition:all 0.3s}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;color:var(--white);letter-spacing:0.02em;white-space:nowrap;flex-shrink:0}
+.nav-logo span{font-style:italic;color:#64B5F6}
+.nav-links{display:flex;gap:1.6rem;list-style:none}
+.nav-links a{font-size:0.78rem;letter-spacing:0.04em;color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.2s;font-weight:400;white-space:nowrap}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:#1E88E5;color:var(--white);padding:0.48rem 1.1rem;font-size:0.75rem;letter-spacing:0.04em;font-weight:500;cursor:pointer;border:none;font-family:'Inter',sans-serif;border-radius:2px;transition:background 0.2s;white-space:nowrap;flex-shrink:0}
+.nav-cta:hover{background:#1565A0}
+.lang-selector{display:flex;gap:0.3rem;align-items:center;flex-shrink:0}
+.lang-btn{background:transparent;border:1px solid rgba(255,255,255,0.3);padding:0.3rem 0.55rem;font-size:0.7rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:rgba(255,255,255,0.7);font-weight:500;transition:all 0.2s}
+.lang-btn:hover{border-color:var(--white);color:var(--white)}
+.lang-btn.active{background:var(--white);color:var(--navy);border-color:var(--white)}
+
+/* HERO */
+.hero{height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--navy)}
+.hero-video{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1800&q=80') center/cover no-repeat;opacity:0.35}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,61,107,0.9) 0%,rgba(10,61,107,0.5) 60%,rgba(0,151,167,0.3) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 4rem;max-width:640px}
+.hero-eyebrow{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:#64B5F6;margin-bottom:1.2rem;font-weight:500}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,4.8rem);font-weight:400;line-height:1.1;color:var(--white);margin-bottom:1.5rem}
+.hero-title em{font-style:italic;color:#64B5F6}
+.hero-sub{font-size:1rem;line-height:1.8;color:rgba(255,255,255,0.8);margin-bottom:2.5rem;font-weight:300;max-width:460px}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-solid{background:#1E88E5;color:var(--white);padding:0.9rem 2.2rem;font-size:0.82rem;letter-spacing:0.08em;font-weight:500;cursor:pointer;border:none;font-family:'Inter',sans-serif;border-radius:2px;transition:all 0.2s;text-transform:uppercase}
+.btn-solid:hover{background:#1565A0}
+.btn-ghost{background:transparent;color:var(--white);padding:0.9rem 2.2rem;font-size:0.82rem;letter-spacing:0.08em;font-weight:500;cursor:pointer;border:1.5px solid rgba(255,255,255,0.6);font-family:'Inter',sans-serif;border-radius:2px;transition:all 0.2s;text-transform:uppercase}
+.btn-ghost:hover{background:rgba(255,255,255,0.1);border-color:var(--white)}
+.hero-badges{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;position:relative}
+.hero-badges::before{content:'';position:absolute;top:0;left:0;width:100%;max-width:500px;height:1px;background:rgba(255,255,255,0.2)}
+.badge-item{text-align:left}
+.badge-num{font-family:'Playfair Display',serif;font-size:1.8rem;color:#64B5F6;font-weight:400}
+.badge-label{font-size:0.72rem;color:rgba(255,255,255,0.6);letter-spacing:0.05em;margin-top:2px}
+
+/* STRIP */
+.strip{background:var(--cyan);padding:1rem 3rem;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
+.strip-item{display:flex;align-items:center;gap:0.6rem;color:rgba(255,255,255,0.95);font-size:0.8rem;letter-spacing:0.04em}
+
+/* EXCURSIONES */
+.excursiones{background:var(--white);padding:6rem 3rem}
+.excursiones-inner{max-width:1100px;margin:0 auto}
+.section-header{margin-bottom:3.5rem}
+.eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem;font-weight:500}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:1rem}
+.section-title em{font-style:italic;color:var(--navy)}
+.excursiones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.exc-card{background:var(--cream);border-radius:6px;overflow:hidden;border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s;cursor:pointer}
+.exc-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(10,61,107,0.12)}
+.exc-img{height:220px;position:relative;overflow:hidden}
+.exc-img img{width:100%;height:100%;object-fit:cover}
+.exc-badge{position:absolute;top:1rem;left:1rem;background:var(--navy);color:white;font-size:0.68rem;padding:0.35rem 0.8rem;border-radius:2px;letter-spacing:0.08em;font-weight:500}
+.exc-badge.popular{background:#1E88E5}
+.exc-body{padding:1.5rem}
+.exc-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;margin-bottom:0.3rem;color:var(--text)}
+.exc-duracion{font-size:0.75rem;color:var(--blue);font-weight:500;letter-spacing:0.05em;margin-bottom:0.8rem}
+.exc-desc{font-size:0.85rem;color:var(--text-muted);line-height:1.65;margin-bottom:1.2rem;font-weight:300}
+.exc-features{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.3rem}
+.exc-feat{font-size:0.72rem;color:var(--text-muted);background:var(--sand);padding:0.25rem 0.6rem;border-radius:2px}
+.exc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1.2rem;border-top:1px solid var(--border)}
+.exc-precio{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy)}
+.exc-precio span{font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--text-muted);font-weight:300}
+.btn-sm{background:var(--navy);color:white;border:none;padding:0.5rem 1.2rem;font-size:0.75rem;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;border-radius:2px;letter-spacing:0.05em;transition:background 0.2s}
+.btn-sm:hover{background:var(--blue)}
+
+/* EL BARCO */
+.barco{background:var(--sand);padding:6rem 3rem}
+.barco-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.barco-imgs{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.barco-img-main{grid-column:span 2;height:240px;border-radius:4px;overflow:hidden}
+.barco-img-main img{width:100%;height:100%;object-fit:cover}
+.barco-img-sm{height:150px;border-radius:4px;overflow:hidden}
+.barco-img-sm img{width:100%;height:100%;object-fit:cover}
+.barco-text p{font-size:0.95rem;line-height:1.85;color:var(--text-muted);margin-bottom:1rem;font-weight:300}
+.barco-specs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.spec-item{background:var(--white);padding:1rem;border-radius:4px;border:1px solid var(--border)}
+.spec-label{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+.spec-value{font-size:0.95rem;font-weight:500;color:var(--navy)}
+
+/* PATRON */
+.patron{background:var(--navy);padding:5rem 3rem;color:white}
+.patron-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.patron-text .eyebrow{color:#64B5F6}
+.patron-text .section-title{color:white}
+.patron-text p{font-size:0.95rem;line-height:1.85;color:rgba(255,255,255,0.75);margin-bottom:1rem;font-weight:300}
+.patron-options{display:flex;flex-direction:column;gap:1rem}
+.patron-opt{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:4px;padding:1.2rem 1.5rem}
+.patron-opt h4{font-size:0.95rem;font-weight:500;margin-bottom:0.4rem;color:white}
+.patron-opt p{font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.6;margin:0}
+.patron-opt .precio-extra{font-size:0.78rem;color:#64B5F6;margin-top:0.5rem;font-weight:500}
+
+/* UBICACION */
+.ubicacion{background:var(--white);padding:6rem 3rem}
+.ubicacion-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.ubicacion-items{margin-top:1.5rem;display:flex;flex-direction:column;gap:1rem}
+.ubi-item{display:flex;align-items:flex-start;gap:1rem;padding:1rem;background:var(--sand);border-radius:4px;border:1px solid var(--border)}
+.ubi-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+.ubi-text strong{font-size:0.88rem;font-weight:500;display:block;margin-bottom:2px;color:var(--navy)}
+.ubi-text span{font-size:0.78rem;color:var(--text-muted)}
+.ubicacion-map{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-radius:6px;height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;border:1px solid var(--border)}
+.map-pin{font-size:3rem}
+.map-label{font-size:0.8rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase}
+.map-address{font-size:0.95rem;color:var(--navy);font-weight:500;text-align:center;padding:0 2rem}
+
+/* OPINIONES */
+.opiniones{background:var(--sand);padding:6rem 3rem}
+.opiniones-inner{max-width:1100px;margin:0 auto}
+.opiniones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.opinion-card{background:var(--white);padding:1.8rem;border-radius:4px;border:1px solid var(--border)}
+.opinion-stars{color:#F59E0B;font-size:0.85rem;margin-bottom:1rem}
+.opinion-text{font-size:0.88rem;line-height:1.75;color:var(--text-muted);margin-bottom:1.2rem;font-weight:300;font-style:italic}
+.opinion-author{display:flex;align-items:center;gap:0.8rem}
+.opinion-avatar{width:36px;height:36px;border-radius:50%;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:600;color:var(--navy)}
+.opinion-name{font-size:0.85rem;font-weight:500;color:var(--text)}
+.opinion-origen{font-size:0.72rem;color:var(--text-muted)}
+
+/* RESERVA */
+.reserva{background:var(--white);padding:6rem 3rem}
+.reserva-inner{max-width:780px;margin:0 auto;text-align:center}
+.reserva-inner .section-header{margin-bottom:2.5rem}
+.reserva-inner > p{font-size:0.95rem;line-height:1.8;color:var(--text-muted);margin-bottom:3rem;font-weight:300}
+.reserva-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:left;margin-bottom:1.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.4rem}
+.form-group.full{grid-column:span 2}
+.form-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);font-weight:500}
+.form-input{background:var(--sand);border:1px solid var(--border);padding:0.85rem 1rem;font-family:'Inter',sans-serif;font-size:0.88rem;color:var(--text);outline:none;transition:border-color 0.2s;border-radius:2px}
+.form-input:focus{border-color:var(--navy)}
+.form-input option{background:white}
+.btn-full{width:100%;padding:1rem;background:var(--navy);color:white;border:none;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background 0.2s}
+.btn-full:hover{background:var(--blue)}
+.reserva-note{font-size:0.75rem;color:var(--text-muted);margin-top:1rem}
+
+/* FOOTER */
+footer{background:#071F36;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;color:#64B5F6;margin-bottom:0.8rem;font-weight:400}
+.footer-tagline{font-size:0.78rem;line-height:1.7;color:rgba(255,255,255,0.4);max-width:220px}
+.footer-col h5{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.9);margin-bottom:1.2rem;font-weight:500}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.footer-col ul li{font-size:0.82rem;color:rgba(255,255,255,0.5)}
+.footer-col ul li a{color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s}
+.footer-col ul li a:hover{color:#64B5F6}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:rgba(255,255,255,0.3)}
+.footer-bottom a{color:rgba(100,181,246,0.6);text-decoration:none}
+
+/* CHAT */
+.chatbot{position:fixed;bottom:2rem;right:2rem;z-index:1000}
+.chat-btn{width:54px;height:54px;background:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(10,61,107,0.4);transition:all 0.3s;border-radius:50%;position:relative}
+.chat-btn:hover{background:var(--blue);transform:scale(1.05)}
+.chat-btn svg{width:22px;height:22px;fill:white}
+.chat-badge{position:absolute;top:-3px;right:-3px;width:16px;height:16px;background:#E24B4A;border-radius:50%;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;color:white}
+.chat-window{position:absolute;bottom:68px;right:0;width:340px;background:var(--white);border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,0.15);display:none;flex-direction:column;overflow:hidden;border-radius:10px}
+.chat-window.open{display:flex}
+.chat-header{background:var(--navy);padding:1rem 1.2rem;display:flex;align-items:center;gap:0.8rem}
+.chat-avatar{width:38px;height:38px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.chat-header-info h4{font-size:0.92rem;color:white;font-weight:500}
+.chat-header-info p{font-size:0.68rem;color:rgba(255,255,255,0.7)}
+.chat-online{width:7px;height:7px;background:#4ADE80;border-radius:50%;display:inline-block;margin-right:4px}
+.chat-messages{padding:1.2rem;display:flex;flex-direction:column;gap:0.8rem;height:270px;overflow-y:auto;background:#F8FAFF}
+.chat-msg{max-width:85%;padding:0.65rem 0.9rem;font-size:0.82rem;line-height:1.5;border-radius:12px}
+.chat-msg.bot{background:var(--white);border:1px solid var(--border);align-self:flex-start;color:var(--text);border-bottom-left-radius:3px}
+.chat-msg.user{background:var(--navy);color:white;align-self:flex-end;border-bottom-right-radius:3px}
+.chat-suggestions{display:flex;flex-direction:column;gap:0.35rem;padding:0.6rem 1rem}
+.chat-sug{background:var(--white);border:1px solid var(--border);padding:0.45rem 0.8rem;font-size:0.75rem;color:var(--text);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;border-radius:20px}
+.chat-sug:hover{border-color:var(--navy);color:var(--navy);background:var(--blue-pale)}
+.chat-input-row{display:flex;border-top:1px solid var(--border);background:var(--white)}
+.chat-input{flex:1;background:transparent;border:none;padding:0.8rem 1rem;font-family:'Inter',sans-serif;font-size:0.82rem;color:var(--text);outline:none}
+.chat-input::placeholder{color:var(--text-muted)}
+.chat-send{background:var(--navy);border:none;padding:0 1rem;cursor:pointer;color:white;font-size:1rem;font-weight:600;transition:background 0.2s}
+.chat-send:hover{background:var(--blue)}
+.typing{display:flex;gap:4px;align-items:center;padding:0.5rem}
+.typing span{width:6px;height:6px;background:#64B5F6;border-radius:50%;animation:typingAnim 1.2s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes typingAnim{0%,80%,100%{opacity:0.3;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:1rem 1.2rem}
+  .nav-links{display:none}
+  .nav-logo{font-size:1.1rem}
+  .nav-cta{font-size:0.72rem;padding:0.45rem 0.9rem}
+  .hero{height:auto;padding:7rem 0 0}
+  .hero-content{padding:2rem 1.5rem 3rem;max-width:100%}
+  .hero-title{font-size:clamp(2.2rem,10vw,3.5rem)}
+  .hero-badges{gap:1.5rem}
+  .strip{padding:1rem 1.5rem;gap:1.5rem;overflow-x:auto;flex-wrap:nowrap}
+  .excursiones{padding:4rem 1.5rem}
+  .excursiones-grid{grid-template-columns:1fr;gap:1.2rem}
+  .barco{padding:4rem 1.5rem}
+  .barco-inner{grid-template-columns:1fr;gap:2.5rem}
+  .patron{padding:4rem 1.5rem}
+  .patron-inner{grid-template-columns:1fr;gap:2rem}
+  .ubicacion{padding:4rem 1.5rem}
+  .ubicacion-inner{grid-template-columns:1fr;gap:2rem}
+  .opiniones{padding:4rem 1.5rem}
+  .opiniones-grid{grid-template-columns:1fr;gap:1.2rem}
+  .reserva{padding:4rem 1.5rem}
+  .reserva-form{grid-template-columns:1fr;gap:0.8rem}
+  .form-group.full{grid-column:span 1}
+  footer{padding:3rem 1.5rem 2rem}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:0.8rem;text-align:center}
+  .chat-window{width:calc(100vw - 2rem);right:0;max-width:340px}
+  .chatbot{bottom:1.2rem;right:1rem}
+  .barco-specs{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span>Blue Motion</span> Charter</div>
+  <ul class="nav-links">
+    <li><a href="#excursiones">Excursiones</a></li>
+    <li><a href="#barco">El Barco</a></li>
+    <li><a href="#ubicacion">Ubicaci&oacute;n</a></li>
+    <li><a href="#opiniones">Opiniones</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.scrollToReserva()">Reservar ahora</button>
+  <div class="lang-selector">
+    <button class="lang-btn active" onclick="window.setLang('es')">ES</button>
+    <button class="lang-btn" onclick="window.setLang('en')">EN</button>
+    <button class="lang-btn" onclick="window.setLang('de')">DE</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-video"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Naviera Balear &middot; Palma de Mallorca &middot; 2026</p>
+    <h1 class="hero-title">El mar de<br>Mallorca, <em>tuyo</em></h1>
+    <p class="hero-sub">Explora las mejores calas del sur de Mallorca a bordo de nuestra motora privada. Con o sin patr&oacute;n. Para grupos de hasta 8 personas.</p>
+    <div class="hero-actions">
+      <button class="btn-solid" onclick="window.scrollToReserva()">Ver excursiones</button>
+      <button class="btn-ghost" onclick="document.getElementById('barco').scrollIntoView({behavior:'smooth'})">Conoce el barco</button>
+    </div>
+    <div class="hero-badges">
+      <div class="badge-item"><div class="badge-num">8</div><div class="badge-label">Personas m&aacute;x.</div></div>
+      <div class="badge-item"><div class="badge-num">3</div><div class="badge-label">Rutas exclusivas</div></div>
+      <div class="badge-item"><div class="badge-num">24/7</div><div class="badge-label">Asistente IA</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-item"><span>&#10003;</span> Cancelaci&oacute;n gratuita 48h</div>
+  <div class="strip-item"><span>&#10003;</span> Patr&oacute;n profesional disponible</div>
+  <div class="strip-item"><span>&#10003;</span> Snorkel y nevera incluidos</div>
+  <div class="strip-item"><span>&#10003;</span> Precio por barco, no por persona</div>
+  <div class="strip-item"><span>&#10003;</span> Naviera Balear, Palma</div>
+</div>
+
+<section class="excursiones" id="excursiones">
+  <div class="excursiones-inner">
+    <div class="section-header">
+      <p class="eyebrow">Nuestras salidas</p>
+      <h2 class="section-title">Elige tu <em>aventura</em></h2>
+    </div>
+    <div class="excursiones-grid">
+
+      <div class="exc-card">
+        <div class="exc-img">
+          <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80" alt="Medio día en barco Mallorca">
+          <div class="exc-badge">POPULAR</div>
+        </div>
+        <div class="exc-body">
+          <div class="exc-name">Medio D&iacute;a</div>
+          <div class="exc-duracion">&#9201; 4 HORAS &middot; SALIDA 9:00H O 14:00H</div>
+          <div class="exc-desc">Ruta costera por las calas del sur: Cala Blava, Cala Pi y playas v&iacute;rgenes de Llucmajor. La excursi&oacute;n perfecta para una ma&ntilde;ana o tarde imborrables.</div>
+          <div class="exc-features">
+            <span class="exc-feat">Snorkel incluido</span>
+            <span class="exc-feat">Nevera a bordo</span>
+            <span class="exc-feat">Altavoz BT</span>
+            <span class="exc-feat">Toldo</span>
+          </div>
+          <div class="exc-footer">
+            <div class="exc-precio">350&euro;<span> /salida</span></div>
+            <button class="btn-sm" onclick="window.scrollToReserva()">Reservar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="exc-card">
+        <div class="exc-img">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Día completo en barco Mallorca">
+          <div class="exc-badge popular">D&Iacute;A COMPLETO</div>
+        </div>
+        <div class="exc-body">
+          <div class="exc-name">D&iacute;a Completo</div>
+          <div class="exc-duracion">&#9201; 8 HORAS &middot; SALIDA 9:30H</div>
+          <div class="exc-desc">La ruta completa. Desde Palma hasta las calas m&aacute;s remotas del sur. Paradas para ba&ntilde;o, snorkel y tiempo libre. Trae tu pic-nic y disfruta del Mediterr&aacute;neo como mereces.</div>
+          <div class="exc-features">
+            <span class="exc-feat">Ruta completa sur</span>
+            <span class="exc-feat">Varias paradas</span>
+            <span class="exc-feat">Snorkel incluido</span>
+            <span class="exc-feat">Nevera a bordo</span>
+          </div>
+          <div class="exc-footer">
+            <div class="exc-precio">650&euro;<span> /salida</span></div>
+            <button class="btn-sm" onclick="window.scrollToReserva()">Reservar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="exc-card">
+        <div class="exc-img">
+          <img src="https://images.unsplash.com/photo-1586861203927-800a5acdce4d?w=600&q=80" alt="Puesta de sol en barco Mallorca">
+          <div class="exc-badge" style="background:#0097A7">SUNSET</div>
+        </div>
+        <div class="exc-body">
+          <div class="exc-name">Puesta de Sol</div>
+          <div class="exc-duracion">&#9201; 3 HORAS &middot; SALIDA 18:00H</div>
+          <div class="exc-desc">Navega al atardecer con c&oacute;ctel de bienvenida a bordo. La puesta de sol del Mediterr&aacute;neo desde el mar es una experiencia que no olvidar&aacute;s. Ideal para parejas y grupos.</div>
+          <div class="exc-features">
+            <span class="exc-feat">C&oacute;ctel incluido</span>
+            <span class="exc-feat">Vistas al atardecer</span>
+            <span class="exc-feat">M&uacute;sica a bordo</span>
+            <span class="exc-feat">Rom&aacute;ntico</span>
+          </div>
+          <div class="exc-footer">
+            <div class="exc-precio">280&euro;<span> /salida</span></div>
+            <button class="btn-sm" onclick="window.scrollToReserva()">Reservar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="barco" id="barco">
+  <div class="barco-inner">
+    <div class="barco-imgs">
+      <div class="barco-img-main">
+        <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&q=80" alt="Motora Blue Motion Charter">
+      </div>
+      <div class="barco-img-sm">
+        <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80" alt="Playa cala Mallorca">
+      </div>
+      <div class="barco-img-sm">
+        <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=400&q=80" alt="Agua cristalina Mallorca">
+      </div>
+    </div>
+    <div class="barco-text">
+      <p class="eyebrow">La embarcaci&oacute;n</p>
+      <h2 class="section-title">Nuestra <em>motora</em></h2>
+      <p>Motora de &uacute;ltima generaci&oacute;n dise&ntilde;ada para el confort y la seguridad. Equipada con todo lo necesario para que tu excursi&oacute;n sea perfecta, desde el primer momento hasta el &uacute;ltimo.</p>
+      <p>Anclada en la marina Naviera Balear, en el coraz&oacute;n del Paseo Mar&iacute;timo de Palma. A 10 minutos del aeropuerto y con f&aacute;cil acceso desde cualquier punto de la isla.</p>
+      <div class="barco-specs">
+        <div class="spec-item"><div class="spec-label">Capacidad</div><div class="spec-value">Hasta 8 personas</div></div>
+        <div class="spec-item"><div class="spec-label">Tipo</div><div class="spec-value">Motora deportiva</div></div>
+        <div class="spec-item"><div class="spec-label">Equipamiento</div><div class="spec-value">Snorkel + Nevera</div></div>
+        <div class="spec-item"><div class="spec-label">M&uacute;sica</div><div class="spec-value">Altavoz Bluetooth</div></div>
+        <div class="spec-item"><div class="spec-label">Seguridad</div><div class="spec-value">Chalecos + Anclaje</div></div>
+        <div class="spec-item"><div class="spec-label">Confort</div><div class="spec-value">Toldo + Plataforma</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="patron">
+  <div class="patron-inner">
+    <div class="patron-text">
+      <p class="eyebrow">Patr&oacute;n</p>
+      <h2 class="section-title">&iquest;Con o sin <em>patr&oacute;n</em>?</h2>
+      <p>Adaptamos la excursi&oacute;n a tu experiencia y preferencias. Tanto si tienes licencia n&aacute;utica como si no, tenemos la opci&oacute;n perfecta para ti.</p>
+      <p>Nuestro patr&oacute;n profesional conoce cada rinc&oacute;n de la costa sur de Mallorca y te llevar&aacute; a los lugares m&aacute;s espectaculares.</p>
+    </div>
+    <div class="patron-options">
+      <div class="patron-opt">
+        <h4>&#9875; Con Patr&oacute;n Incluido</h4>
+        <p>Nuestro patr&oacute;n profesional se encarga de todo. T&uacute; solo disfruta. Ideal si no tienes licencia n&aacute;utica o simplemente quieres descansar.</p>
+        <div class="precio-extra">Incluido en el precio &mdash; sin coste adicional</div>
+      </div>
+      <div class="patron-opt">
+        <h4>&#9940; Sin Patr&oacute;n (Licencia Propia)</h4>
+        <p>Si tienes titulaci&oacute;n n&aacute;utica puedes llevar t&uacute; mismo el barco. M&aacute;xima libertad para trazar tu propia ruta.</p>
+        <div class="precio-extra">Requiere licencia n&aacute;utica v&aacute;lida &middot; Misma tarifa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ubicacion" id="ubicacion">
+  <div class="ubicacion-inner">
+    <div class="ubicacion-text">
+      <p class="eyebrow">D&oacute;nde encontrarnos</p>
+      <h2 class="section-title">En el coraz&oacute;n de <em>Palma</em></h2>
+      <p style="font-size:0.95rem;line-height:1.85;color:var(--text-muted);font-weight:300;margin-bottom:1rem;">Estamos en la marina Naviera Balear, en pleno Paseo Mar&iacute;timo de Palma. A 10 minutos del aeropuerto y con f&aacute;cil aparcamiento en los alrededores.</p>
+      <div class="ubicacion-items">
+        <div class="ubi-item">
+          <span class="ubi-icon">&#9875;</span>
+          <div class="ubi-text">
+            <strong>Naviera Balear</strong>
+            <span>Paseo Mar&iacute;timo, Palma de Mallorca</span>
+          </div>
+        </div>
+        <div class="ubi-item">
+          <span class="ubi-icon">&#9992;</span>
+          <div class="ubi-text">
+            <strong>Aeropuerto de Palma</strong>
+            <span>10 minutos en coche &middot; 8 km</span>
+          </div>
+        </div>
+        <div class="ubi-item">
+          <span class="ubi-icon">&#128697;</span>
+          <div class="ubi-text">
+            <strong>Centro de Palma</strong>
+            <span>5 minutos a pie &middot; Paseo Mar&iacute;timo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ubicacion-map">
+      <span class="map-pin">&#9875;</span>
+      <div class="map-label">Nuestra ubicaci&oacute;n</div>
+      <div class="map-address">Marina Naviera Balear<br>Paseo Mar&iacute;timo, Palma de Mallorca</div>
+    </div>
+  </div>
+</section>
+
+<section class="opiniones" id="opiniones">
+  <div class="opiniones-inner">
+    <div class="section-header">
+      <p class="eyebrow">Lo que dicen nuestros clientes</p>
+      <h2 class="section-title">Opiniones <em>reales</em></h2>
+    </div>
+    <div class="opiniones-grid">
+      <div class="opinion-card">
+        <div class="opinion-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="opinion-text">"Incre&iacute;ble experiencia. El patr&oacute;n nos llev&oacute; a calas que no salen en ning&uacute;n mapa. El snorkel fue espectacular y el agua, cristalina. Sin duda, el mejor plan de nuestras vacaciones en Mallorca."</div>
+        <div class="opinion-author">
+          <div class="opinion-avatar">MR</div>
+          <div><div class="opinion-name">Mar&iacute;a Rodr&iacute;guez</div><div class="opinion-origen">Madrid &middot; Julio 2025</div></div>
+        </div>
+      </div>
+      <div class="opinion-card">
+        <div class="opinion-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="opinion-text">"Wir haben den Sonnenuntergangs-Charter gebucht und es war traumhaft. Der Cocktail an Bord, die Farben des Himmels und das ruhige Mittelmeer — absolut unvergesslich. Vielen Dank!"</div>
+        <div class="opinion-author">
+          <div class="opinion-avatar">TK</div>
+          <div><div class="opinion-name">Thomas Klein</div><div class="opinion-origen">M&uuml;nchen &middot; Agosto 2025</div></div>
+        </div>
+      </div>
+      <div class="opinion-card">
+        <div class="opinion-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="opinion-text">"We booked the full day trip for 6 people and it was absolutely perfect. The skipper knew every hidden cove and the boat was spotless. The AI chatbot made booking so easy at 11pm from our hotel!"</div>
+        <div class="opinion-author">
+          <div class="opinion-avatar">JW</div>
+          <div><div class="opinion-name">James Wilson</div><div class="opinion-origen">London &middot; Junio 2025</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reserva" id="reserva">
+  <div class="reserva-inner">
+    <div class="section-header">
+      <p class="eyebrow">Reserva directa &middot; Mejor precio garantizado</p>
+      <h2 class="section-title">Reserva tu <em>excursi&oacute;n</em></h2>
+    </div>
+    <p>Reserva directamente o escr&iacute;benos por el chat. Respondemos en espa&ntilde;ol, ingl&eacute;s y alem&aacute;n las 24 horas.</p>
+    <div class="reserva-form">
+      <div class="form-group"><label class="form-label">Nombre completo</label><input type="text" class="form-input" placeholder="Tu nombre"></div>
+      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="tu@email.com"></div>
+      <div class="form-group"><label class="form-label">Tel&eacute;fono</label><input type="tel" class="form-input" placeholder="+34 600 000 000"></div>
+      <div class="form-group"><label class="form-label">Fecha</label><input type="date" class="form-input"></div>
+      <div class="form-group"><label class="form-label">Tipo de excursi&oacute;n</label>
+        <select class="form-input">
+          <option>Medio d&iacute;a (4h) &middot; 350&euro;</option>
+          <option>D&iacute;a completo (8h) &middot; 650&euro;</option>
+          <option>Puesta de sol (3h) &middot; 280&euro;</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">N&uacute;mero de personas</label>
+        <select class="form-input">
+          <option>1-2 personas</option>
+          <option>3-4 personas</option>
+          <option>5-6 personas</option>
+          <option>7-8 personas</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Patr&oacute;n</label>
+        <select class="form-input">
+          <option>Con patr&oacute;n incluido (sin licencia)</option>
+          <option>Sin patr&oacute;n (tengo licencia n&aacute;utica)</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Peticiones especiales</label><input type="text" class="form-input" placeholder="Celebraci&oacute;n, alergias, ruta especial..."></div>
+    </div>
+    <button class="btn-full">Solicitar reserva</button>
+    <p class="reserva-note">Confirmaci&oacute;n en menos de 2 horas &middot; Cancelaci&oacute;n gratuita hasta 48h antes</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Blue Motion Charter</div>
+        <div class="footer-tagline">Excursiones en barco por las calas de Mallorca. Naviera Balear, Paseo Mar&iacute;timo de Palma.</div>
+      </div>
+      <div class="footer-col">
+        <h5>Excursiones</h5>
+        <ul>
+          <li><a href="#">Medio d&iacute;a (4h)</a></li>
+          <li><a href="#">D&iacute;a completo (8h)</a></li>
+          <li><a href="#">Puesta de sol (3h)</a></li>
+          <li><a href="#">Tarifas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <ul>
+          <li>Naviera Balear</li>
+          <li>Paseo Mar&iacute;timo, Palma</li>
+          <li>+34 971 XXX XXX</li>
+          <li><a href="#">info@bluemotioncharter.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Blue Motion Charter &middot; Todos los derechos reservados</span>
+      <span>Web desarrollada por <a href="#">Yer.AI</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="chatbot">
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-avatar">&#9875;</div>
+      <div class="chat-header-info">
+        <h4>Blue Motion Charter</h4>
+        <p><span class="chat-online"></span>Asistente &middot; En l&iacute;nea ahora</p>
+      </div>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">&#128075; &iexcl;Hola! Soy el asistente de Blue Motion Charter. Puedo ayudarte a reservar tu excursi&oacute;n en espa&ntilde;ol, ingl&eacute;s o alem&aacute;n. &iquest;En qu&eacute; puedo ayudarte? &#9875;</div>
+    </div>
+    <div class="chat-suggestions" id="suggestions">
+      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">&iquest;Qu&eacute; excursiones ten&eacute;is?</button>
+      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">Quiero reservar para el s&aacute;bado</button>
+      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">&iquest;Cu&aacute;ntas personas caben?</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" placeholder="Escr&iacute;benos en cualquier idioma..." onkeydown="if(event.key==='Enter')window.sendMsg()">
+      <button class="chat-send" onclick="window.sendMsg()">&#8593;</button>
+    </div>
+  </div>
+  <button class="chat-btn" onclick="window.toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+    <div class="chat-badge">1</div>
+  </button>
+</div>
+
+<script>
+// ── TRADUCCIONES ──────────────────────────────────────────────
+var LANG = {
+  es: {
+    navLinks:['Excursiones','El Barco','Ubicaci\u00f3n','Opiniones'],
+    navCta:'Reservar ahora',
+    heroEyebrow:'Naviera Balear \u00b7 Palma de Mallorca \u00b7 2026',
+    heroTitle:'El mar de<br>Mallorca, <em>tuyo</em>',
+    heroSub:'Explora las mejores calas del sur de Mallorca a bordo de nuestra motora privada. Con o sin patr\u00f3n. Para grupos de hasta 8 personas.',
+    heroCta1:'Ver excursiones', heroCta2:'Conoce el barco',
+    badge1:'Personas m\u00e1x.', badge2:'Rutas exclusivas', badge3:'Asistente IA',
+    strip:['Cancelaci\u00f3n gratuita 48h','Patr\u00f3n profesional disponible','Snorkel y nevera incluidos','Precio por barco, no por persona','Naviera Balear, Palma'],
+    exc1:{name:'Medio D\u00eda',dur:'4 HORAS \u00b7 SALIDA 9:00H O 14:00H',btn:'Reservar'},
+    exc2:{name:'D\u00eda Completo',dur:'8 HORAS \u00b7 SALIDA 9:30H',btn:'Reservar'},
+    exc3:{name:'Puesta de Sol',dur:'3 HORAS \u00b7 SALIDA 18:00H',btn:'Reservar'},
+    barcoEyebrow:'La embarcaci\u00f3n', barcoTitle:'Nuestra <em>motora</em>',
+    patronEyebrow:'Patr\u00f3n', patronTitle:'\u00bfCon o sin <em>patr\u00f3n</em>?',
+    locEyebrow:'D\u00f3nde encontrarnos', locTitle:'En el coraz\u00f3n de <em>Palma</em>',
+    mapLabel:'Nuestra ubicaci\u00f3n',
+    revEyebrow:'Lo que dicen nuestros clientes', revTitle:'Opiniones <em>reales</em>',
+    resEyebrow:'Reserva directa \u00b7 Mejor precio garantizado', resTitle:'Reserva tu <em>excursi\u00f3n</em>',
+    resDesc:'Reserva directamente o escr\u00edbenos por el chat. Respondemos en espa\u00f1ol, ingl\u00e9s y alem\u00e1n las 24 horas.',
+    formBtn:'Solicitar reserva',
+    formNote:'Confirmaci\u00f3n en menos de 2 horas \u00b7 Cancelaci\u00f3n gratuita hasta 48h antes',
+    chatPlaceholder:'Escr\u00edbenos en cualquier idioma...',
+    chatSugs:['\u00bfQu\u00e9 excursiones ten\u00e9is?','Quiero reservar para el s\u00e1bado','\u00bfCu\u00e1ntas personas caben?']
+  },
+  en: {
+    navLinks:['Trips','The Boat','Location','Reviews'],
+    navCta:'Book now',
+    heroEyebrow:'Naviera Balear \u00b7 Palma de Mallorca \u00b7 2026',
+    heroTitle:'Mallorca\'s sea,<br><em>yours</em>',
+    heroSub:'Explore the best coves of southern Mallorca on our private motorboat. With or without skipper. For groups of up to 8 people.',
+    heroCta1:'View trips', heroCta2:'Meet the boat',
+    badge1:'Max. people', badge2:'Exclusive routes', badge3:'AI assistant',
+    strip:['Free cancellation 48h','Professional skipper available','Snorkel & cooler included','Price per boat, not per person','Naviera Balear, Palma'],
+    exc1:{name:'Half Day',dur:'4 HOURS \u00b7 DEPARTURE 9:00 OR 14:00',btn:'Book'},
+    exc2:{name:'Full Day',dur:'8 HOURS \u00b7 DEPARTURE 9:30',btn:'Book'},
+    exc3:{name:'Sunset Trip',dur:'3 HOURS \u00b7 DEPARTURE 18:00',btn:'Book'},
+    barcoEyebrow:'The vessel', barcoTitle:'Our <em>motorboat</em>',
+    patronEyebrow:'Skipper', patronTitle:'With or without <em>skipper</em>?',
+    locEyebrow:'Find us', locTitle:'In the heart of <em>Palma</em>',
+    mapLabel:'Our location',
+    revEyebrow:'What our clients say', revTitle:'Real <em>reviews</em>',
+    resEyebrow:'Direct booking \u00b7 Best price guaranteed', resTitle:'Book your <em>trip</em>',
+    resDesc:'Book directly or chat with us. We reply in Spanish, English and German 24 hours a day.',
+    formBtn:'Request booking',
+    formNote:'Confirmation within 2 hours \u00b7 Free cancellation up to 48h before',
+    chatPlaceholder:'Write to us in any language...',
+    chatSugs:['What trips do you offer?','I want to book for Saturday','How many people fit?']
+  },
+  de: {
+    navLinks:['Ausfl\u00fcge','Das Boot','Lage','Bewertungen'],
+    navCta:'Jetzt buchen',
+    heroEyebrow:'Naviera Balear \u00b7 Palma de Mallorca \u00b7 2026',
+    heroTitle:'Das Meer Mallorcas,<br><em>geh\u00f6rt Ihnen</em>',
+    heroSub:'Entdecken Sie die sch\u00f6nsten Buchten S\u00fcdmallocas an Bord unseres privaten Motorboots. Mit oder ohne Skipper. F\u00fcr Gruppen bis zu 8 Personen.',
+    heroCta1:'Ausfl\u00fcge ansehen', heroCta2:'Boot kennenlernen',
+    badge1:'Max. Personen', badge2:'Exklusive Routen', badge3:'KI-Assistent',
+    strip:['Kostenlose Stornierung 48h','Professioneller Skipper verf\u00fcgbar','Schnorchel & K\u00fchlbox inklusive','Preis pro Boot, nicht pro Person','Naviera Balear, Palma'],
+    exc1:{name:'Halber Tag',dur:'4 STUNDEN \u00b7 ABFAHRT 9:00 ODER 14:00',btn:'Buchen'},
+    exc2:{name:'Ganzer Tag',dur:'8 STUNDEN \u00b7 ABFAHRT 9:30',btn:'Buchen'},
+    exc3:{name:'Sonnenuntergang',dur:'3 STUNDEN \u00b7 ABFAHRT 18:00',btn:'Buchen'},
+    barcoEyebrow:'Das Fahrzeug', barcoTitle:'Unser <em>Motorboot</em>',
+    patronEyebrow:'Skipper', patronTitle:'Mit oder ohne <em>Skipper</em>?',
+    locEyebrow:'Wo wir sind', locTitle:'Im Herzen von <em>Palma</em>',
+    mapLabel:'Unser Standort',
+    revEyebrow:'Was unsere Kunden sagen', revTitle:'Echte <em>Bewertungen</em>',
+    resEyebrow:'Direktbuchung \u00b7 Bestpreisgarantie', resTitle:'Buchen Sie Ihren <em>Ausflug</em>',
+    resDesc:'Buchen Sie direkt oder schreiben Sie uns im Chat. Wir antworten auf Spanisch, Englisch und Deutsch rund um die Uhr.',
+    formBtn:'Buchung anfragen',
+    formNote:'Best\u00e4tigung innerhalb von 2 Stunden \u00b7 Kostenlose Stornierung bis 48h vorher',
+    chatPlaceholder:'Schreiben Sie uns in jeder Sprache...',
+    chatSugs:['Welche Ausfl\u00fcge haben Sie?','Ich m\u00f6chte f\u00fcr Samstag buchen','Wie viele Personen passen rein?']
+  }
+};
+
+window.setLang = function(l) {
+  var t = LANG[l];
+  if (!t) return;
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelectorAll('.lang-btn').forEach(function(b){if(b.textContent===l.toUpperCase())b.classList.add('active')});
+  var nl=document.querySelectorAll('.nav-links a');
+  nl.forEach(function(a,i){if(t.navLinks[i])a.textContent=t.navLinks[i]});
+  document.querySelector('.nav-cta').textContent=t.navCta;
+  var he=document.querySelector('.hero-eyebrow');if(he)he.textContent=t.heroEyebrow;
+  var ht=document.querySelector('.hero-title');if(ht)ht.innerHTML=t.heroTitle;
+  var hs=document.querySelector('.hero-sub');if(hs)hs.textContent=t.heroSub;
+  var hb=document.querySelectorAll('.hero-actions button');
+  if(hb[0])hb[0].textContent=t.heroCta1;if(hb[1])hb[1].textContent=t.heroCta2;
+  var bl=document.querySelectorAll('.badge-label');
+  if(bl[0])bl[0].textContent=t.badge1;if(bl[1])bl[1].textContent=t.badge2;if(bl[2])bl[2].textContent=t.badge3;
+  document.querySelectorAll('.strip-item').forEach(function(el,i){
+    if(t.strip[i])el.innerHTML='<span>\u2713</span> '+t.strip[i];
+  });
+  var cards=document.querySelectorAll('.exc-card');
+  [[t.exc1,cards[0]],[t.exc2,cards[1]],[t.exc3,cards[2]]].forEach(function(pair){
+    var d=pair[0],c=pair[1];if(!d||!c)return;
+    c.querySelector('.exc-name').textContent=d.name;
+    c.querySelector('.exc-duracion').innerHTML='&#9201; '+d.dur;
+    c.querySelector('.btn-sm').textContent=d.btn;
+  });
+  var be=document.querySelector('.barco .eyebrow');if(be)be.textContent=t.barcoEyebrow;
+  var bt=document.querySelector('.barco .section-title');if(bt)bt.innerHTML=t.barcoTitle;
+  var pe=document.querySelector('.patron .eyebrow');if(pe)pe.textContent=t.patronEyebrow;
+  var pt=document.querySelector('.patron .section-title');if(pt)pt.innerHTML=t.patronTitle;
+  var le=document.querySelector('.ubicacion .eyebrow');if(le)le.textContent=t.locEyebrow;
+  var lt=document.querySelector('.ubicacion .section-title');if(lt)lt.innerHTML=t.locTitle;
+  var ml=document.querySelector('.map-label');if(ml)ml.textContent=t.mapLabel;
+  var re=document.querySelector('.opiniones .eyebrow');if(re)re.textContent=t.revEyebrow;
+  var rt=document.querySelector('.opiniones .section-title');if(rt)rt.innerHTML=t.revTitle;
+  var rese=document.querySelector('.reserva .eyebrow');if(rese)rese.textContent=t.resEyebrow;
+  var rest=document.querySelector('.reserva .section-title');if(rest)rest.innerHTML=t.resTitle;
+  var resp=document.querySelector('.reserva-inner > p');if(resp)resp.textContent=t.resDesc;
+  var bf=document.querySelector('.btn-full');if(bf)bf.textContent=t.formBtn;
+  var rn=document.querySelector('.reserva-note');if(rn)rn.textContent=t.formNote;
+  var ci=document.querySelector('.chat-input');if(ci)ci.placeholder=t.chatPlaceholder;
+  document.querySelectorAll('.chat-sug').forEach(function(s,i){if(t.chatSugs[i])s.textContent=t.chatSugs[i]});
+};
+
+window.scrollToReserva = function(){
+  document.getElementById('reserva').scrollIntoView({behavior:'smooth'});
+};
+
+// ── CHAT ──────────────────────────────────────────────────────
+(function(){
+  var URL='BACKEND_URL';
+  var open=false,loading=false,hist=[];
+  function toggleChat(){open=!open;document.getElementById('chatWindow').classList.toggle('open',open);document.querySelector('.chat-badge').style.display=open?'none':'flex';}
+  function addMsg(text,type){var c=document.getElementById('chatMessages');var d=document.createElement('div');d.className='chat-msg '+type;d.textContent=text;c.appendChild(d);c.scrollTop=c.scrollHeight;}
+  function showTyping(){var c=document.getElementById('chatMessages');var d=document.createElement('div');d.className='chat-msg bot typing';d.innerHTML='<span></span><span></span><span></span>';d.id='typingIndicator';c.appendChild(d);c.scrollTop=c.scrollHeight;}
+  function removeTyping(){var t=document.getElementById('typingIndicator');if(t)t.remove();}
+  function send(msg){hist.push({role:'user',content:msg});showTyping();fetch(URL+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist})}).then(function(r){return r.json();}).then(function(d){removeTyping();var r=d.reply||'Error. Ll\u00e1manos al +34 971 XXX XXX.';hist.push({role:'assistant',content:r});addMsg(r,'bot');loading=false;}).catch(function(){removeTyping();addMsg('Error de conexi\u00f3n. Escr\u00edbenos a info@bluemotioncharter.com','bot');loading=false;});}
+  window.toggleChat=toggleChat;
+  window.sendMsg=function(){if(loading)return;var inp=document.getElementById('chatInput');var msg=inp.value.trim();if(!msg)return;document.getElementById('suggestions').style.display='none';addMsg(msg,'user');inp.value='';loading=true;send(msg);};
+  window.quickMsg=function(msg){if(loading)return;msg=msg.trim();document.getElementById('suggestions').style.display='none';addMsg(msg,'user');loading=true;send(msg);};
+})();
+</script>
+</body>
+</html>

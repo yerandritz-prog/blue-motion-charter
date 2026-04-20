@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Motion Charter · Panel de Administración</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#F0F4F8;color:#1C1C1C;font-size:14px}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+.topbar{background:#0A3D6B;color:white;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.topbar-logo{font-size:1.1rem;font-weight:600;letter-spacing:0.02em}
+.topbar-logo span{color:#64B5F6}
+.topbar-sub{font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:2px}
+.topbar-right{font-size:0.78rem;color:rgba(255,255,255,0.6)}
+.content{padding:2rem;max-width:1200px;margin:0 auto}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-card{background:white;border-radius:8px;padding:1.5rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);border-left:4px solid var(--color)}
+.stat-card.navy{--color:#0A3D6B}
+.stat-card.blue{--color:#1E88E5}
+.stat-card.cyan{--color:#0097A7}
+.stat-card.green{--color:#2E7D32}
+.stat-num{font-size:2rem;font-weight:600;color:#0A3D6B;line-height:1}
+.stat-label{font-size:0.75rem;color:#6B7280;margin-top:4px;text-transform:uppercase;letter-spacing:0.08em}
+.stat-sub{font-size:0.78rem;color:#9CA3AF;margin-top:8px}
+.section-title{font-size:1rem;font-weight:600;color:#0A3D6B;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.table-wrap{background:white;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:2rem}
+table{width:100%;border-collapse:collapse}
+thead{background:#0A3D6B}
+thead th{color:rgba(255,255,255,0.9);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:12px 16px;text-align:left;font-weight:500}
+tbody tr{border-bottom:1px solid #F3F4F6;transition:background 0.15s}
+tbody tr:hover{background:#F8FAFF}
+tbody tr:last-child{border-bottom:none}
+td{padding:12px 16px;font-size:0.85rem;color:#4A4A4A;vertical-align:middle}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:500;letter-spacing:0.04em}
+.badge.confirmada{background:#DBEAFE;color:#1565A0}
+.badge.cancelada{background:#FEE2E2;color:#B91C1C}
+.badge.medio_dia{background:#E0F2FE;color:#0277BD}
+.badge.dia_completo{background:#E8F5E9;color:#2E7D32}
+.badge.puesta_de_sol{background:#FFF3E0;color:#E65100}
+.btn-cancel{background:transparent;border:1px solid #E5E7EB;padding:4px 12px;border-radius:4px;font-size:0.75rem;cursor:pointer;color:#6B7280;transition:all 0.2s;font-family:inherit}
+.btn-cancel:hover{border-color:#EF4444;color:#EF4444}
+.empty{text-align:center;padding:3rem;color:#9CA3AF;font-size:0.9rem}
+.refresh-btn{background:#1E88E5;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-size:0.8rem;cursor:pointer;font-family:inherit;transition:background 0.2s}
+.refresh-btn:hover{background:#1565A0}
+.filter-row{display:flex;gap:1rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap}
+.filter-select{background:white;border:1px solid #E5E7EB;padding:0.4rem 0.8rem;border-radius:4px;font-size:0.82rem;font-family:inherit;color:#4A4A4A;outline:none}
+.patron-badge{font-size:0.75rem;color:#0097A7;font-weight:500}
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .content{padding:1rem}
+  .filter-row{flex-direction:column;align-items:stretch}
+  table{font-size:0.78rem}
+  thead th,td{padding:8px 10px}
+  .stat-num{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div>
+    <div class="topbar-logo"><span>Blue Motion</span> Charter</div>
+    <div class="topbar-sub">Panel de Administración &middot; Naviera Balear, Palma</div>
+  </div>
+  <div class="topbar-right" id="lastUpdate">Cargando...</div>
+</div>
+
+<div class="content">
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card navy"><div class="stat-num" id="statTotal">-</div><div class="stat-label">Reservas totales</div></div>
+    <div class="stat-card blue"><div class="stat-num" id="statHoy">-</div><div class="stat-label">Reservas hoy</div></div>
+    <div class="stat-card cyan"><div class="stat-num" id="statProximas">-</div><div class="stat-label">Pr&oacute;ximas salidas</div></div>
+    <div class="stat-card green"><div class="stat-num" id="statIngresos">-</div><div class="stat-label">Ingresos estimados</div></div>
+  </div>
+
+  <div class="section-title">&#9875; Reservas de excursiones</div>
+
+  <div class="filter-row">
+    <select class="filter-select" id="filtroEstado" onchange="renderTabla()">
+      <option value="">Todos los estados</option>
+      <option value="confirmada">Confirmadas</option>
+      <option value="cancelada">Canceladas</option>
+    </select>
+    <select class="filter-select" id="filtroExc" onchange="renderTabla()">
+      <option value="">Todas las excursiones</option>
+      <option value="medio_dia">Medio d&iacute;a</option>
+      <option value="dia_completo">D&iacute;a completo</option>
+      <option value="puesta_de_sol">Puesta de sol</option>
+    </select>
+    <button class="refresh-btn" onclick="cargar()">&#8635; Actualizar</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Excursi&oacute;n</th>
+          <th>Fecha</th>
+          <th>Personas</th>
+          <th>Patr&oacute;n</th>
+          <th>Contacto</th>
+          <th>Estado</th>
+          <th>Acci&oacute;n</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody">
+        <tr><td colspan="9" class="empty">Cargando reservas...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+var BASE = window.location.origin;
+var reservas = [];
+
+var EXC_NAMES = {
+  medio_dia: 'Medio d\u00eda (4h)',
+  dia_completo: 'D\u00eda completo (8h)',
+  puesta_de_sol: 'Puesta de sol (3h)'
+};
+
+var EXC_PRECIOS = { medio_dia: 350, dia_completo: 650, puesta_de_sol: 280 };
+
+function cargar() {
+  fetch(BASE + '/reservas')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      reservas = data;
+      actualizarStats();
+      renderTabla();
+      document.getElementById('lastUpdate').textContent = 'Actualizado: ' + new Date().toLocaleTimeString('es-ES');
+    })
+    .catch(function(){
+      document.getElementById('tablaBody').innerHTML = '<tr><td colspan="9" class="empty">Error al cargar. Comprueba la conexi\u00f3n.</td></tr>';
+    });
+}
+
+function actualizarStats() {
+  var hoy = new Date().toISOString().split('T')[0];
+  var confirmadas = reservas.filter(function(r){ return r.estado !== 'cancelada'; });
+  var hoyReservas = confirmadas.filter(function(r){ return r.fecha === hoy; });
+  var proximas = confirmadas.filter(function(r){ return r.fecha >= hoy; });
+  var ingresos = confirmadas.reduce(function(sum, r){
+    return sum + (EXC_PRECIOS[r.tipo_excursion] || 0);
+  }, 0);
+
+  document.getElementById('statTotal').textContent = reservas.length;
+  document.getElementById('statHoy').textContent = hoyReservas.length;
+  document.getElementById('statProximas').textContent = proximas.length;
+  document.getElementById('statIngresos').textContent = ingresos.toLocaleString('es-ES') + '\u20ac';
+}
+
+function renderTabla() {
+  var filtroEstado = document.getElementById('filtroEstado').value;
+  var filtroExc = document.getElementById('filtroExc').value;
+  var filtradas = reservas.filter(function(r){
+    if (filtroEstado && r.estado !== filtroEstado) return false;
+    if (filtroExc && r.tipo_excursion !== filtroExc) return false;
+    return true;
+  });
+
+  if (filtradas.length === 0) {
+    document.getElementById('tablaBody').innerHTML = '<tr><td colspan="9" class="empty">\u26f5 No hay reservas que mostrar</td></tr>';
+    return;
+  }
+
+  var html = filtradas.map(function(r) {
+    var excName = EXC_NAMES[r.tipo_excursion] || r.tipo_excursion;
+    var patron = r.con_patron ? '\u2714 Incluido' : '\u2715 Licencia propia';
+    var cancelBtn = r.estado !== 'cancelada'
+      ? '<button class="btn-cancel" onclick="cancelar(' + r.id + ')">Cancelar</button>'
+      : '<span style="color:#9CA3AF;font-size:0.75rem;">-</span>';
+
+    return '<tr>' +
+      '<td><strong>#BM-' + r.id + '</strong></td>' +
+      '<td>' + r.nombre + '</td>' +
+      '<td><span class="badge ' + r.tipo_excursion + '">' + excName + '</span></td>' +
+      '<td>' + r.fecha + '</td>' +
+      '<td style="text-align:center">' + r.personas + '</td>' +
+      '<td><span class="patron-badge">' + patron + '</span></td>' +
+      '<td style="font-size:0.78rem;">' + (r.email || '-') + '<br><span style="color:#9CA3AF">' + (r.telefono || '') + '</span></td>' +
+      '<td><span class="badge ' + r.estado + '">' + (r.estado === 'confirmada' ? 'Confirmada' : 'Cancelada') + '</span></td>' +
+      '<td>' + cancelBtn + '</td>' +
+      '</tr>';
+  }).join('');
+
+  document.getElementById('tablaBody').innerHTML = html;
+}
+
+function cancelar(id) {
+  if (!confirm('\u00bfCancelar la reserva #BM-' + id + '?')) return;
+  fetch(BASE + '/reservas/' + id + '/cancelar', { method: 'PATCH' })
+    .then(function(){ cargar(); })
+    .catch(function(){ alert('Error al cancelar'); });
+}
+
+cargar();
+setInterval(cargar, 30000);
+</script>
+</body>
+</html>
