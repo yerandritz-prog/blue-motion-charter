@@ -3,202 +3,692 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blue Motion Charter · Panel de Administración</title>
+<title>Summerboat · Panel de Administración</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#F0F4F8;color:#1C1C1C;font-size:14px}
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
-.topbar{background:#0A3D6B;color:white;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
-.topbar-logo{font-size:1.1rem;font-weight:600;letter-spacing:0.02em}
-.topbar-logo span{color:#64B5F6}
-.topbar-sub{font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:2px}
-.topbar-right{font-size:0.78rem;color:rgba(255,255,255,0.6)}
-.content{padding:2rem;max-width:1200px;margin:0 auto}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
-.stat-card{background:white;border-radius:8px;padding:1.5rem;box-shadow:0 1px 4px rgba(0,0,0,0.06);border-left:4px solid var(--color)}
-.stat-card.navy{--color:#0A3D6B}
-.stat-card.blue{--color:#1E88E5}
-.stat-card.cyan{--color:#0097A7}
-.stat-card.green{--color:#2E7D32}
-.stat-num{font-size:2rem;font-weight:600;color:#0A3D6B;line-height:1}
-.stat-label{font-size:0.75rem;color:#6B7280;margin-top:4px;text-transform:uppercase;letter-spacing:0.08em}
-.stat-sub{font-size:0.78rem;color:#9CA3AF;margin-top:8px}
-.section-title{font-size:1rem;font-weight:600;color:#0A3D6B;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
-.table-wrap{background:white;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);overflow:hidden;margin-bottom:2rem}
-table{width:100%;border-collapse:collapse}
-thead{background:#0A3D6B}
-thead th{color:rgba(255,255,255,0.9);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;padding:12px 16px;text-align:left;font-weight:500}
-tbody tr{border-bottom:1px solid #F3F4F6;transition:background 0.15s}
-tbody tr:hover{background:#F8FAFF}
-tbody tr:last-child{border-bottom:none}
-td{padding:12px 16px;font-size:0.85rem;color:#4A4A4A;vertical-align:middle}
-.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:500;letter-spacing:0.04em}
-.badge.confirmada{background:#DBEAFE;color:#1565A0}
-.badge.cancelada{background:#FEE2E2;color:#B91C1C}
-.badge.medio_dia{background:#E0F2FE;color:#0277BD}
-.badge.dia_completo{background:#E8F5E9;color:#2E7D32}
-.badge.puesta_de_sol{background:#FFF3E0;color:#E65100}
-.btn-cancel{background:transparent;border:1px solid #E5E7EB;padding:4px 12px;border-radius:4px;font-size:0.75rem;cursor:pointer;color:#6B7280;transition:all 0.2s;font-family:inherit}
-.btn-cancel:hover{border-color:#EF4444;color:#EF4444}
-.empty{text-align:center;padding:3rem;color:#9CA3AF;font-size:0.9rem}
-.refresh-btn{background:#1E88E5;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-size:0.8rem;cursor:pointer;font-family:inherit;transition:background 0.2s}
-.refresh-btn:hover{background:#1565A0}
-.filter-row{display:flex;gap:1rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap}
-.filter-select{background:white;border:1px solid #E5E7EB;padding:0.4rem 0.8rem;border-radius:4px;font-size:0.82rem;font-family:inherit;color:#4A4A4A;outline:none}
-.patron-badge{font-size:0.75rem;color:#0097A7;font-weight:500}
-@media(max-width:768px){
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .content{padding:1rem}
-  .filter-row{flex-direction:column;align-items:stretch}
-  table{font-size:0.78rem}
-  thead th,td{padding:8px 10px}
-  .stat-num{font-size:1.5rem}
+:root{
+  --navy:#0B1D3A;--navy-mid:#152D55;--navy-light:#1E3D73;
+  --gold:#C8A44A;--gold-light:#E5C97B;--gold-pale:rgba(200,164,74,0.12);
+  --white:#fff;--stone:#F0F4F8;--text:#0F172A;--text-muted:#6B7280;
+  --border:#E2E8F0;--red:#EF4444;--red-pale:#FEF2F2;
+  --green:#10B981;--green-pale:#ECFDF5;
+  --amber:#F59E0B;--amber-pale:#FFFBEB;
+  --sidebar:240px;
 }
+body{font-family:'Inter',sans-serif;background:var(--stone);color:var(--text);display:flex;min-height:100vh}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.4s}
+#loginScreen.hidden{opacity:0;pointer-events:none}
+.login-card{background:#fff;border-radius:12px;padding:2.8rem 2.4rem;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.login-logo{text-align:center;margin-bottom:2rem}
+.login-logo .brand{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--navy)}
+.login-logo .brand span{color:var(--gold)}
+.login-logo .sub{font-size:0.72rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px}
+.login-field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.login-field label{font-size:0.72rem;font-weight:500;color:var(--text);letter-spacing:0.08em;text-transform:uppercase}
+.login-field input{border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;font-size:0.88rem;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s}
+.login-field input:focus{border-color:var(--gold)}
+.login-btn{width:100%;padding:0.75rem;background:var(--navy);color:#fff;border:none;border-radius:6px;font-size:0.88rem;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+.login-btn:hover{background:var(--navy-light)}
+.login-error{background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;border-radius:6px;padding:0.6rem 0.9rem;font-size:0.8rem;margin-bottom:0.8rem;display:none}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:var(--navy);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50}
+.sidebar-logo{padding:1.6rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.1)}
+.sidebar-logo .brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#fff;font-weight:600}
+.sidebar-logo .brand span{color:var(--gold)}
+.sidebar-logo .sub{font-size:0.65rem;color:rgba(255,255,255,0.45);letter-spacing:0.1em;text-transform:uppercase;margin-top:3px}
+.nav-section{padding:1rem 0}
+.nav-label{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.35);padding:0.6rem 1.4rem;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 1.4rem;font-size:0.8rem;color:rgba(255,255,255,0.7);cursor:pointer;transition:all 0.15s;border-left:3px solid transparent}
+.nav-item:hover{background:rgba(255,255,255,0.07);color:#fff}
+.nav-item.active{background:rgba(255,255,255,0.1);color:#fff;border-left-color:var(--gold)}
+.sidebar-footer{margin-top:auto;padding:1rem 1.4rem;border-top:1px solid rgba(255,255,255,0.1)}
+.online-dot{width:7px;height:7px;background:#4ADE80;border-radius:50%;display:inline-block;margin-right:4px;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* MAIN */
+.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40}
+.page-title{font-size:1rem;font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;font-size:0.78rem;font-weight:500;border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;border:none;letter-spacing:0.02em}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-light)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-muted)}
+.btn-outline:hover{border-color:var(--gold);color:var(--navy)}
+.btn-sm{padding:0.38rem 0.8rem;font-size:0.73rem}
+.btn-danger{background:transparent;border:1px solid #FECACA;color:var(--red)}
+.btn-danger:hover{background:var(--red-pale)}
+.search-wrap{position:relative}
+.search-wrap input{border:1px solid var(--border);background:var(--stone);padding:0.48rem 0.9rem 0.48rem 2.1rem;font-size:0.8rem;border-radius:4px;font-family:'Inter',sans-serif;outline:none;width:200px;transition:all 0.2s}
+.search-wrap input:focus{border-color:var(--gold);background:#fff}
+.search-icon{position:absolute;left:0.65rem;top:50%;transform:translateY(-50%);font-size:0.8rem;color:var(--text-muted)}
+
+/* CONTENT */
+.content{padding:1.8rem 2rem;flex:1}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:1.8rem}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:1.2rem 1.4rem}
+.stat-card.gold{border-top:3px solid var(--gold)}
+.stat-card.green{border-top:3px solid var(--green)}
+.stat-card.navy{border-top:3px solid var(--navy)}
+.stat-icon{font-size:1.4rem;margin-bottom:0.4rem;display:block}
+.stat-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.3rem}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--navy);line-height:1}
+.stat-sub{font-size:0.7rem;color:var(--text-muted);margin-top:0.2rem}
+
+/* FILTERS */
+.filters-bar{background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.9rem 1.2rem;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
+.filter-chip{padding:0.38rem 0.9rem;border-radius:20px;border:1px solid var(--border);font-size:0.75rem;color:var(--text-muted);cursor:pointer;transition:all 0.2s;background:transparent;font-family:'Inter',sans-serif}
+.filter-chip:hover{border-color:var(--gold);color:var(--navy)}
+.filter-chip.active{background:var(--gold-pale);border-color:var(--gold);color:#92681A}
+.filter-label{font-size:0.72rem;color:var(--text-muted);font-weight:500;margin-right:0.3rem}
+.counter{font-size:0.75rem;color:var(--text-muted);margin-left:auto}
+
+/* TABLE */
+.table-wrap{background:#fff;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--stone)}
+th{padding:0.8rem 1rem;font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border)}
+td{padding:0.85rem 1rem;font-size:0.82rem;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(200,164,74,0.04)}
+.empty td{text-align:center;padding:3rem;color:var(--text-muted)}
+.empty-icon{font-size:2rem;display:block;margin-bottom:0.5rem}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:0.3rem;padding:0.28rem 0.7rem;border-radius:20px;font-size:0.7rem;font-weight:500}
+.badge-confirmed{background:var(--green-pale);color:var(--green)}
+.badge-cancelled{background:var(--red-pale);color:var(--red)}
+.serv-badge{padding:0.3rem 0.7rem;border-radius:4px;font-size:0.7rem;font-weight:600;letter-spacing:0.04em}
+.serv-dia{background:#EFF6FF;color:#1D4ED8}
+.serv-manana{background:#F0FDF4;color:#15803D}
+.serv-tarde{background:#FFF7ED;color:#C2410C}
+.serv-sunset{background:#FDF4FF;color:#7E22CE}
+.action-btns{display:flex;gap:0.3rem}
+.btn-icon{width:28px;height:28px;border-radius:4px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all 0.15s;background:transparent}
+.btn-icon.cancel{color:var(--red)}
+.btn-icon.cancel:hover{background:var(--red-pale)}
+.btn-icon:disabled{opacity:0.3;cursor:default}
+
+/* MODAL OVERLAY */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:8px;padding:2rem;width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
+.modal h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;margin-bottom:1.4rem;color:var(--navy)}
+.modal-form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.modal-form-group label{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)}
+.modal-form-group input,.modal-form-group select,.modal-form-group textarea{border:1px solid var(--border);border-radius:4px;padding:0.65rem 0.9rem;font-size:0.85rem;font-family:'Inter',sans-serif;outline:none;width:100%;transition:border-color 0.2s}
+.modal-form-group input:focus,.modal-form-group select:focus,.modal-form-group textarea:focus{border-color:var(--gold)}
+.modal-form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+.modal-preview{background:var(--gold-pale);border:1px solid rgba(200,164,74,0.3);border-radius:4px;padding:0.7rem 1rem;font-size:0.82rem;margin-bottom:1rem;display:none;color:#92681A}
+.modal-actions{display:flex;justify-content:flex-end;gap:0.8rem;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+
+/* DETAIL OVERLAY */
+.detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;display:none;align-items:flex-start;justify-content:flex-end}
+.detail-overlay.open{display:flex}
+.detail-panel{background:#fff;width:400px;min-height:100vh;padding:1.8rem;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,0.15)}
+.detail-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem}
+.detail-ref{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--navy)}
+.detail-row{display:flex;flex-direction:column;gap:0.2rem;padding:0.9rem 0;border-bottom:1px solid var(--border)}
+.detail-row:last-child{border-bottom:none}
+.detail-row-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)}
+.detail-row-val{font-size:0.9rem;font-weight:500}
+.detail-importe{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);font-weight:600}
+
+/* TOAST */
+.toast-container{position:fixed;bottom:1.5rem;right:1.5rem;display:flex;flex-direction:column;gap:0.5rem;z-index:300}
+.toast{padding:0.7rem 1.1rem;border-radius:6px;font-size:0.82rem;font-weight:500;box-shadow:0 4px 12px rgba(0,0,0,0.15);animation:toastIn 0.3s}
+.toast.success{background:var(--green-pale);color:var(--green);border:1px solid rgba(16,185,129,0.3)}
+.toast.error{background:var(--red-pale);color:var(--red);border:1px solid rgba(239,68,68,0.3)}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div>
-    <div class="topbar-logo"><span>Blue Motion</span> Charter</div>
-    <div class="topbar-sub">Panel de Administración &middot; Naviera Balear, Palma</div>
-  </div>
-  <div class="topbar-right" id="lastUpdate">Cargando...</div>
-</div>
 
-<div class="content">
-  <div class="stats-grid" id="statsGrid">
-    <div class="stat-card navy"><div class="stat-num" id="statTotal">-</div><div class="stat-label">Reservas totales</div></div>
-    <div class="stat-card blue"><div class="stat-num" id="statHoy">-</div><div class="stat-label">Reservas hoy</div></div>
-    <div class="stat-card cyan"><div class="stat-num" id="statProximas">-</div><div class="stat-label">Pr&oacute;ximas salidas</div></div>
-    <div class="stat-card green"><div class="stat-num" id="statIngresos">-</div><div class="stat-label">Ingresos estimados</div></div>
-  </div>
-
-  <div class="section-title">&#9875; Reservas de excursiones</div>
-
-  <div class="filter-row">
-    <select class="filter-select" id="filtroEstado" onchange="renderTabla()">
-      <option value="">Todos los estados</option>
-      <option value="confirmada">Confirmadas</option>
-      <option value="cancelada">Canceladas</option>
-    </select>
-    <select class="filter-select" id="filtroExc" onchange="renderTabla()">
-      <option value="">Todas las excursiones</option>
-      <option value="medio_dia">Medio d&iacute;a</option>
-      <option value="dia_completo">D&iacute;a completo</option>
-      <option value="puesta_de_sol">Puesta de sol</option>
-    </select>
-    <button class="refresh-btn" onclick="cargar()">&#8635; Actualizar</button>
-  </div>
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Cliente</th>
-          <th>Excursi&oacute;n</th>
-          <th>Fecha</th>
-          <th>Personas</th>
-          <th>Patr&oacute;n</th>
-          <th>Contacto</th>
-          <th>Estado</th>
-          <th>Acci&oacute;n</th>
-        </tr>
-      </thead>
-      <tbody id="tablaBody">
-        <tr><td colspan="9" class="empty">Cargando reservas...</td></tr>
-      </tbody>
-    </table>
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="brand">⚓ SUMMER<span>BOAT</span></div>
+      <div class="sub">Panel de Administración</div>
+    </div>
+    <div class="login-error" id="loginError"></div>
+    <form onsubmit="hacerLogin(event)">
+      <div class="login-field">
+        <label>Contraseña</label>
+        <input type="password" id="loginPass" placeholder="••••••••" autofocus>
+      </div>
+      <button class="login-btn" type="submit" id="loginBtn">Entrar</button>
+    </form>
   </div>
 </div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">⚓ SUMMER<span>BOAT</span></div>
+    <div class="sub">Administración</div>
+  </div>
+  <nav class="nav-section">
+    <div class="nav-label">Principal</div>
+    <div class="nav-item active" onclick="setPage('reservas',this)">📅 Reservas</div>
+    <div class="nav-label" style="margin-top:0.4rem">Servicios</div>
+    <div class="nav-item" onclick="filtrarPor('dia_completo',this)">☀️ Día Completo</div>
+    <div class="nav-item" onclick="filtrarPor('medio_dia_manana',this)">🌅 Medio Día Mañana</div>
+    <div class="nav-item" onclick="filtrarPor('medio_dia_tarde',this)">🌊 Medio Día Tarde</div>
+    <div class="nav-item" onclick="filtrarPor('sunset',this)">🌇 Sunset Cruise</div>
+    <div class="nav-label" style="margin-top:0.4rem">Herramientas</div>
+    <div class="nav-item" onclick="exportCSV()">⬇️ Exportar CSV</div>
+    <div class="nav-item" onclick="window.open('summerboat.html','_blank')">🌐 Ver web</div>
+  </nav>
+  <div class="sidebar-footer">
+    <div style="font-size:0.75rem;color:rgba(255,255,255,0.55);margin-bottom:0.3rem"><span class="online-dot"></span>Sistema activo</div>
+    <div style="font-size:0.65rem;color:rgba(255,255,255,0.3)">v1.0 · Summerboat 2026</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="page-title" id="pageTitle">Reservas</div>
+    <div class="topbar-right">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar nombre, email..." oninput="buscar()">
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="cargarReservas()">↻ Actualizar</button>
+      <button class="btn btn-navy btn-sm" onclick="abrirModalNueva()">+ Nueva reserva</button>
+      <button class="btn btn-sm" onclick="cerrarSesion()" style="color:var(--red);border:1px solid #FECACA">⎋ Salir</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- STATS -->
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card gold">
+        <span class="stat-icon">⛵</span>
+        <div class="stat-label">Salidas hoy</div>
+        <div class="stat-num" id="statHoy">—</div>
+        <div class="stat-sub">reservas confirmadas</div>
+      </div>
+      <div class="stat-card green">
+        <span class="stat-icon">📅</span>
+        <div class="stat-label">Esta semana</div>
+        <div class="stat-num" id="statSemana">—</div>
+        <div class="stat-sub">próximas salidas</div>
+      </div>
+      <div class="stat-card navy">
+        <span class="stat-icon">📊</span>
+        <div class="stat-label">Total reservas</div>
+        <div class="stat-num" id="statTotal">—</div>
+        <div class="stat-sub">temporada 2026</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">💶</span>
+        <div class="stat-label">Ingresos totales</div>
+        <div class="stat-num" id="statIngresos">—</div>
+        <div class="stat-sub">confirmadas</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🕐</span>
+        <div class="stat-label">Última actualización</div>
+        <div class="stat-num" style="font-size:1rem" id="lastUpdate">—</div>
+        <div class="stat-sub">auto-refresco 60s</div>
+      </div>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="filters-bar">
+      <span class="filter-label">Filtrar:</span>
+      <button class="filter-chip active" data-filter="todas" onclick="activarFiltro(this)">Todas</button>
+      <button class="filter-chip" data-filter="confirmadas" onclick="activarFiltro(this)">✓ Confirmadas</button>
+      <button class="filter-chip" data-filter="hoy" onclick="activarFiltro(this)">Hoy</button>
+      <button class="filter-chip" data-filter="proximas" onclick="activarFiltro(this)">Próximos 7 días</button>
+      <button class="filter-chip" data-filter="canceladas" onclick="activarFiltro(this)">Canceladas</button>
+      <span class="counter" id="contadorResultados">—</span>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Ref.</th>
+            <th>Cliente</th>
+            <th>Servicio</th>
+            <th>Fecha</th>
+            <th>Horario</th>
+            <th>Pers.</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr class="empty"><td colspan="9"><span class="empty-icon">⏳</span>Cargando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY NUEVA RESERVA -->
+<div class="overlay" id="overlayNueva" onclick="cerrarOverlay(event,'overlayNueva')">
+  <div class="modal">
+    <h2>Nueva Reserva Manual</h2>
+    <form onsubmit="crearReservaManual(event)">
+      <div class="modal-form-row">
+        <div class="modal-form-group">
+          <label>Fecha *</label>
+          <input type="date" id="fn-fecha" required>
+        </div>
+        <div class="modal-form-group">
+          <label>Servicio *</label>
+          <select id="fn-servicio" required onchange="actualizarPreviewNueva()">
+            <option value="">Selecciona...</option>
+            <option value="dia_completo">☀️ Día Completo — 1.200€</option>
+            <option value="medio_dia_manana">🌅 Medio Día Mañana — 650€</option>
+            <option value="medio_dia_tarde">🌊 Medio Día Tarde — 650€</option>
+            <option value="sunset">🌇 Sunset Cruise — 400€</option>
+          </select>
+        </div>
+      </div>
+      <div id="fn-preview" class="modal-preview"></div>
+      <div class="modal-form-row">
+        <div class="modal-form-group">
+          <label>Nombre *</label>
+          <input type="text" id="fn-nombre" required>
+        </div>
+        <div class="modal-form-group">
+          <label>Personas *</label>
+          <input type="number" id="fn-huespedes" min="1" max="12" value="2" required>
+        </div>
+      </div>
+      <div class="modal-form-row">
+        <div class="modal-form-group">
+          <label>Email</label>
+          <input type="email" id="fn-email">
+        </div>
+        <div class="modal-form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="fn-telefono">
+        </div>
+      </div>
+      <div class="modal-form-group">
+        <label>Peticiones especiales</label>
+        <textarea id="fn-peticiones" rows="2"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="cerrar('overlayNueva')">Cancelar</button>
+        <button type="submit" class="btn btn-navy" id="btnCrear">Confirmar reserva</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- OVERLAY DETALLE -->
+<div class="detail-overlay" id="overlayDetalle" onclick="if(event.target===this)cerrar('overlayDetalle')">
+  <div class="detail-panel">
+    <div class="detail-header">
+      <div>
+        <div class="detail-ref" id="d-ref">—</div>
+        <div id="d-estado-badge" style="margin-top:0.4rem"></div>
+      </div>
+      <button onclick="cerrar('overlayDetalle')" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--text-muted)">✕</button>
+    </div>
+    <div style="background:var(--gold-pale);border-radius:6px;padding:1rem 1.2rem;margin-bottom:1.2rem;border:1px solid rgba(200,164,74,0.3)">
+      <div style="font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#92681A;margin-bottom:0.2rem">Importe</div>
+      <div class="detail-importe" id="d-importe">—</div>
+    </div>
+    <div class="detail-row"><div class="detail-row-label">Cliente</div><div class="detail-row-val" id="d-nombre">—</div></div>
+    <div class="detail-row"><div class="detail-row-label">Email</div><div class="detail-row-val" id="d-email">—</div></div>
+    <div class="detail-row"><div class="detail-row-label">Teléfono</div><div class="detail-row-val" id="d-telefono">—</div></div>
+    <div class="detail-row"><div class="detail-row-label">Servicio</div><div class="detail-row-val" id="d-servicio">—</div></div>
+    <div class="detail-row"><div class="detail-row-label">Fecha</div><div class="detail-row-val" id="d-fecha">—</div></div>
+    <div class="detail-row"><div class="detail-row-label">Horario</div><div class="detail-row-val" id="d-horario">—</div></div>
+    <div class="detail-row"><div class="detail-row-label">Personas</div><div class="detail-row-val" id="d-huespedes">—</div></div>
+    <div class="detail-row"><div class="detail-row-label">Peticiones</div><div class="detail-row-val" id="d-peticiones" style="font-size:0.82rem;color:var(--text-muted)">—</div></div>
+    <div class="detail-row"><div class="detail-row-label">Creada</div><div class="detail-row-val" id="d-created" style="font-size:0.8rem;color:var(--text-muted)">—</div></div>
+    <div style="margin-top:1.5rem;display:flex;gap:0.8rem">
+      <button class="btn btn-outline" style="flex:1" onclick="cerrar('overlayDetalle')">Cerrar</button>
+      <button class="btn btn-sm" id="btn-detail-cancel" style="flex:1;background:var(--red-pale);color:var(--red);border:1px solid #FECACA" onclick="cancelarDesdeDetalle()">Cancelar reserva</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
-var BASE = 'https://blue-motion-charter-production.up.railway.app';
-var reservas = [];
-
-var EXC_NAMES = {
-  medio_dia: 'Medio d\u00eda (4h)',
-  dia_completo: 'D\u00eda completo (8h)',
-  puesta_de_sol: 'Puesta de sol (3h)'
+const BACKEND = '';
+const SERVICIOS = {
+  dia_completo:     { nombre:'Día Completo',      precio:1200, horario:'9:00 — 17:00' },
+  medio_dia_manana: { nombre:'Medio Día Mañana',  precio:650,  horario:'9:00 — 13:00' },
+  medio_dia_tarde:  { nombre:'Medio Día Tarde',   precio:650,  horario:'14:00 — 18:00' },
+  sunset:           { nombre:'Sunset Cruise',     precio:400,  horario:'19:00 — 21:30' }
+};
+const SERV_BADGE = {
+  dia_completo:'serv-dia', medio_dia_manana:'serv-manana',
+  medio_dia_tarde:'serv-tarde', sunset:'serv-sunset'
 };
 
-var EXC_PRECIOS = { medio_dia: 350, dia_completo: 650, puesta_de_sol: 280 };
+let todasLasReservas = [];
+let filtroActivo = 'todas';
+let filtroServicio = null;
+let reservaActual = null;
 
-function cargar() {
-  fetch(BASE + '/reservas')
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      reservas = data;
-      actualizarStats();
-      renderTabla();
-      document.getElementById('lastUpdate').textContent = 'Actualizado: ' + new Date().toLocaleTimeString('es-ES');
-    })
-    .catch(function(){
-      document.getElementById('tablaBody').innerHTML = '<tr><td colspan="9" class="empty">Error al cargar. Comprueba la conexi\u00f3n.</td></tr>';
-    });
+// ── AUTH ──
+function getToken(){ return sessionStorage.getItem('sb_admin_token'); }
+function setToken(t){ sessionStorage.setItem('sb_admin_token',t); }
+function clearToken(){ sessionStorage.removeItem('sb_admin_token'); }
+function authH(){ return {'Content-Type':'application/json','Authorization':`Bearer ${getToken()}`}; }
+
+async function hacerLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const errDiv = document.getElementById('loginError');
+  const pass = document.getElementById('loginPass').value;
+  btn.disabled=true; btn.textContent='Comprobando...';
+  errDiv.style.display='none';
+  try {
+    const res = await fetch(`${BACKEND}/admin/login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pass})});
+    const data = await res.json();
+    if(res.ok && data.token){
+      setToken(data.token);
+      document.getElementById('loginScreen').classList.add('hidden');
+      await cargarReservas();
+    } else {
+      errDiv.textContent=data.error||'Contraseña incorrecta.';
+      errDiv.style.display='block';
+      document.getElementById('loginPass').value='';
+    }
+  } catch(err){
+    errDiv.textContent='Error de conexión.';
+    errDiv.style.display='block';
+  }
+  btn.disabled=false; btn.textContent='Entrar';
 }
 
-function actualizarStats() {
-  var hoy = new Date().toISOString().split('T')[0];
-  var confirmadas = reservas.filter(function(r){ return r.estado !== 'cancelada'; });
-  var hoyReservas = confirmadas.filter(function(r){ return r.fecha === hoy; });
-  var proximas = confirmadas.filter(function(r){ return r.fecha >= hoy; });
-  var ingresos = confirmadas.reduce(function(sum, r){
-    return sum + (EXC_PRECIOS[r.tipo_excursion] || 0);
-  }, 0);
-
-  document.getElementById('statTotal').textContent = reservas.length;
-  document.getElementById('statHoy').textContent = hoyReservas.length;
-  document.getElementById('statProximas').textContent = proximas.length;
-  document.getElementById('statIngresos').textContent = ingresos.toLocaleString('es-ES') + '\u20ac';
+async function cerrarSesion(){
+  if(!confirm('¿Cerrar sesión?')) return;
+  try{ await fetch(`${BACKEND}/admin/logout`,{method:'POST',headers:authH()}); }catch(e){}
+  clearToken();
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('loginPass').value='';
 }
 
-function renderTabla() {
-  var filtroEstado = document.getElementById('filtroEstado').value;
-  var filtroExc = document.getElementById('filtroExc').value;
-  var filtradas = reservas.filter(function(r){
-    if (filtroEstado && r.estado !== filtroEstado) return false;
-    if (filtroExc && r.tipo_excursion !== filtroExc) return false;
-    return true;
-  });
+(async function initAuth(){
+  const token=getToken();
+  if(!token) return;
+  try{
+    const res=await fetch(`${BACKEND}/admin/reservas`,{headers:authH()});
+    if(res.status===401){clearToken();return;}
+    document.getElementById('loginScreen').classList.add('hidden');
+    const data=await res.json();
+    todasLasReservas=data;
+    actualizarStats(data);
+    renderTabla(data);
+  } catch(e){}
+})();
 
-  if (filtradas.length === 0) {
-    document.getElementById('tablaBody').innerHTML = '<tr><td colspan="9" class="empty">\u26f5 No hay reservas que mostrar</td></tr>';
+// ── UTILS ──
+function formatFecha(f){ if(!f) return '—'; const[y,m,d]=f.split('-'); return `${d}/${m}/${y}`; }
+function formatFechaLarga(f){
+  if(!f) return '—';
+  return new Date(f+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+}
+
+// ── TOAST ──
+function toast(msg,type='success'){
+  const c=document.getElementById('toastContainer');
+  const t=document.createElement('div');
+  t.className=`toast ${type}`;
+  t.textContent=({success:'✓',error:'✕',info:'ℹ'}[type]||'ℹ')+' '+msg;
+  c.appendChild(t);
+  setTimeout(()=>t.remove(),3500);
+}
+
+// ── STATS ──
+function actualizarStats(reservas){
+  const hoy=new Date().toISOString().split('T')[0];
+  const fin=new Date(Date.now()+7*86400000).toISOString().split('T')[0];
+  const conf=reservas.filter(r=>r.estado!=='cancelada');
+  document.getElementById('statHoy').textContent = conf.filter(r=>r.fecha===hoy).length;
+  document.getElementById('statSemana').textContent = conf.filter(r=>r.fecha>hoy&&r.fecha<=fin).length;
+  document.getElementById('statTotal').textContent = conf.length;
+  const ingresos=conf.reduce((s,r)=>s+(r.precio||0),0);
+  document.getElementById('statIngresos').textContent = ingresos>0 ? ingresos.toLocaleString('es-ES')+'€' : '0€';
+  document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('es-ES');
+}
+
+// ── BADGES ──
+function servBadge(tipo){
+  const s=SERVICIOS[tipo];
+  return `<span class="serv-badge ${SERV_BADGE[tipo]||''}">${s?s.nombre:tipo}</span>`;
+}
+function estadoBadge(estado){
+  return estado==='cancelada'
+    ? `<span class="badge badge-cancelled">✕ Cancelada</span>`
+    : `<span class="badge badge-confirmed">✓ Confirmada</span>`;
+}
+
+// ── RENDER ──
+function renderTabla(reservas){
+  const tbody=document.getElementById('tableBody');
+  document.getElementById('contadorResultados').textContent=reservas.length+' resultado'+(reservas.length!==1?'s':'');
+  if(!reservas.length){
+    tbody.innerHTML=`<tr class="empty"><td colspan="9"><span class="empty-icon">📋</span>No hay reservas con este filtro.</td></tr>`;
     return;
   }
-
-  var html = filtradas.map(function(r) {
-    var excName = EXC_NAMES[r.tipo_excursion] || r.tipo_excursion;
-    var patron = r.con_patron ? '\u2714 Incluido' : '\u2715 Licencia propia';
-    var cancelBtn = r.estado !== 'cancelada'
-      ? '<button class="btn-cancel" onclick="cancelar(' + r.id + ')">Cancelar</button>'
-      : '<span style="color:#9CA3AF;font-size:0.75rem;">-</span>';
-
-    return '<tr>' +
-      '<td><strong>#BM-' + r.id + '</strong></td>' +
-      '<td>' + r.nombre + '</td>' +
-      '<td><span class="badge ' + r.tipo_excursion + '">' + excName + '</span></td>' +
-      '<td>' + r.fecha + '</td>' +
-      '<td style="text-align:center">' + r.personas + '</td>' +
-      '<td><span class="patron-badge">' + patron + '</span></td>' +
-      '<td style="font-size:0.78rem;">' + (r.email || '-') + '<br><span style="color:#9CA3AF">' + (r.telefono || '') + '</span></td>' +
-      '<td><span class="badge ' + r.estado + '">' + (r.estado === 'confirmada' ? 'Confirmada' : 'Cancelada') + '</span></td>' +
-      '<td>' + cancelBtn + '</td>' +
-      '</tr>';
+  tbody.innerHTML=reservas.map(r=>{
+    const s=SERVICIOS[r.tipo_servicio];
+    return `<tr onclick="abrirDetalle(${r.id})" style="cursor:pointer">
+      <td style="color:var(--gold);font-weight:600;font-size:0.78rem">#SB-${r.id}</td>
+      <td><div style="font-weight:500">${r.nombre}</div><div style="font-size:0.75rem;color:var(--text-muted)">${r.email||'—'}</div></td>
+      <td>${servBadge(r.tipo_servicio)}</td>
+      <td style="font-weight:500;white-space:nowrap">${formatFecha(r.fecha)}</td>
+      <td style="font-size:0.78rem;color:var(--text-muted)">${s?s.horario:'—'}</td>
+      <td style="text-align:center">${r.huespedes}</td>
+      <td style="font-weight:600;color:${r.precio>0?'var(--gold)':'var(--text-muted)'}">${r.precio>0?r.precio+'€':'—'}</td>
+      <td>${estadoBadge(r.estado)}</td>
+      <td onclick="event.stopPropagation()">
+        <div class="action-btns">
+          <button class="btn-icon cancel" title="Cancelar" onclick="cancelarReserva(${r.id},this)" ${r.estado==='cancelada'?'disabled':''}>✕</button>
+        </div>
+      </td>
+    </tr>`;
   }).join('');
-
-  document.getElementById('tablaBody').innerHTML = html;
 }
 
-function cancelar(id) {
-  if (!confirm('\u00bfCancelar la reserva #BM-' + id + '?')) return;
-  fetch(BASE + '/reservas/' + id + '/cancelar', { method: 'PATCH' })
-    .then(function(){ cargar(); })
-    .catch(function(){ alert('Error al cancelar'); });
+// ── FILTROS ──
+function aplicarFiltro(tipo, reservas){
+  const hoy=new Date().toISOString().split('T')[0];
+  const fin=new Date(Date.now()+7*86400000).toISOString().split('T')[0];
+  if(tipo==='confirmadas') return reservas.filter(r=>r.estado!=='cancelada');
+  if(tipo==='canceladas') return reservas.filter(r=>r.estado==='cancelada');
+  if(tipo==='hoy') return reservas.filter(r=>r.fecha===hoy&&r.estado!=='cancelada');
+  if(tipo==='proximas') return reservas.filter(r=>r.fecha>hoy&&r.fecha<=fin&&r.estado!=='cancelada');
+  if(filtroServicio) return reservas.filter(r=>r.tipo_servicio===filtroServicio);
+  return reservas;
 }
 
-cargar();
-setInterval(cargar, 30000);
+function activarFiltro(btn){
+  filtroServicio=null;
+  document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  filtroActivo=btn.dataset.filter;
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  buscar();
+}
+
+function filtrarPor(servicio, navEl){
+  filtroServicio=servicio;
+  filtroActivo='todas';
+  document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  navEl.classList.add('active');
+  const r=todasLasReservas.filter(x=>x.tipo_servicio===servicio);
+  renderTabla(r);
+  document.getElementById('contadorResultados').textContent=r.length+' resultado'+(r.length!==1?'s':'');
+}
+
+function setPage(page,el){
+  filtroServicio=null;
+  filtroActivo='todas';
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
+  document.querySelector('[data-filter="todas"]').classList.add('active');
+  buscar();
+}
+
+function buscar(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  let r=aplicarFiltro(filtroActivo,todasLasReservas);
+  if(q) r=r.filter(x=>x.nombre.toLowerCase().includes(q)||(x.email||'').toLowerCase().includes(q)||(x.telefono||'').includes(q));
+  renderTabla(r);
+}
+
+// ── CARGAR ──
+async function cargarReservas(){
+  try{
+    const res=await fetch(`${BACKEND}/admin/reservas`,{headers:authH()});
+    if(res.status===401){clearToken();document.getElementById('loginScreen').classList.remove('hidden');return;}
+    todasLasReservas=await res.json();
+    todasLasReservas.sort((a,b)=>a.fecha>b.fecha?1:-1);
+    actualizarStats(todasLasReservas);
+    buscar();
+  } catch(e){
+    document.getElementById('tableBody').innerHTML=`<tr class="empty"><td colspan="9"><span class="empty-icon">⚠️</span>Error al cargar. Verifica conexión.</td></tr>`;
+  }
+}
+
+// ── CANCELAR ──
+async function cancelarReserva(id,btn){
+  if(!confirm(`¿Cancelar reserva #SB-${id}? Esta acción no se puede deshacer.`)) return;
+  if(btn){btn.disabled=true;btn.textContent='...';}
+  try{
+    await fetch(`${BACKEND}/admin/reservas/${id}/cancelar`,{method:'PATCH',headers:authH()});
+    toast(`Reserva #SB-${id} cancelada`);
+    await cargarReservas();
+  } catch(e){
+    toast('Error al cancelar.','error');
+    if(btn){btn.disabled=false;btn.textContent='✕';}
+  }
+}
+
+// ── MODAL NUEVA ──
+function abrirModalNueva(){
+  const hoy=new Date().toISOString().split('T')[0];
+  document.getElementById('fn-fecha').value=hoy;
+  document.getElementById('fn-servicio').value='';
+  document.getElementById('fn-nombre').value='';
+  document.getElementById('fn-email').value='';
+  document.getElementById('fn-telefono').value='';
+  document.getElementById('fn-huespedes').value='2';
+  document.getElementById('fn-peticiones').value='';
+  document.getElementById('fn-preview').style.display='none';
+  document.getElementById('overlayNueva').classList.add('open');
+}
+
+function actualizarPreviewNueva(){
+  const sv=document.getElementById('fn-servicio').value;
+  const prev=document.getElementById('fn-preview');
+  if(sv&&SERVICIOS[sv]){
+    const s=SERVICIOS[sv];
+    prev.style.display='block';
+    prev.textContent=`${s.nombre} · ${s.horario} · Total: ${s.precio}€`;
+  } else {
+    prev.style.display='none';
+  }
+}
+
+async function crearReservaManual(e){
+  e.preventDefault();
+  const btn=document.getElementById('btnCrear');
+  btn.disabled=true; btn.textContent='Creando...';
+  const datos={
+    nombre:document.getElementById('fn-nombre').value.trim(),
+    email:document.getElementById('fn-email').value.trim(),
+    telefono:document.getElementById('fn-telefono').value.trim(),
+    fecha:document.getElementById('fn-fecha').value,
+    tipo_servicio:document.getElementById('fn-servicio').value,
+    huespedes:parseInt(document.getElementById('fn-huespedes').value),
+    peticiones:document.getElementById('fn-peticiones').value.trim()
+  };
+  try{
+    const res=await fetch(`${BACKEND}/admin/reservas`,{method:'POST',headers:authH(),body:JSON.stringify(datos)});
+    const data=await res.json();
+    if(data.success){
+      toast(`Reserva #SB-${data.id} creada correctamente`);
+      cerrar('overlayNueva');
+      await cargarReservas();
+    } else {
+      toast(data.mensaje||'Error al crear','error');
+    }
+  } catch(e2){
+    toast('Error de conexión.','error');
+  }
+  btn.disabled=false; btn.textContent='Confirmar reserva';
+}
+
+// ── DETALLE ──
+function abrirDetalle(id){
+  const r=todasLasReservas.find(x=>x.id===id);
+  if(!r) return;
+  reservaActual=r;
+  const s=SERVICIOS[r.tipo_servicio];
+  document.getElementById('d-ref').textContent=`#SB-${r.id}`;
+  document.getElementById('d-estado-badge').innerHTML=estadoBadge(r.estado);
+  document.getElementById('d-importe').textContent=r.precio>0?r.precio+'€':'—';
+  document.getElementById('d-nombre').textContent=r.nombre;
+  document.getElementById('d-email').innerHTML=r.email?`<a href="mailto:${r.email}" style="color:var(--gold)">${r.email}</a>`:'—';
+  document.getElementById('d-telefono').innerHTML=r.telefono?`<a href="tel:${r.telefono}">${r.telefono}</a>`:'—';
+  document.getElementById('d-servicio').innerHTML=servBadge(r.tipo_servicio);
+  document.getElementById('d-fecha').textContent=formatFechaLarga(r.fecha);
+  document.getElementById('d-horario').textContent=s?s.horario:'—';
+  document.getElementById('d-huespedes').textContent=r.huespedes+' persona'+(r.huespedes!==1?'s':'');
+  document.getElementById('d-peticiones').textContent=r.peticiones||'Sin peticiones especiales';
+  document.getElementById('d-created').textContent=r.created_at?new Date(r.created_at).toLocaleString('es-ES'):'—';
+  document.getElementById('btn-detail-cancel').style.display=r.estado==='cancelada'?'none':'inline-flex';
+  document.getElementById('overlayDetalle').classList.add('open');
+}
+
+async function cancelarDesdeDetalle(){
+  if(!reservaActual) return;
+  cerrar('overlayDetalle');
+  await cancelarReserva(reservaActual.id,null);
+}
+
+// ── EXPORT CSV ──
+function exportCSV(){
+  const r=filtroServicio?todasLasReservas.filter(x=>x.tipo_servicio===filtroServicio):aplicarFiltro(filtroActivo,todasLasReservas);
+  const headers=['Ref','Nombre','Email','Teléfono','Servicio','Fecha','Horario','Personas','Precio (€)','Estado','Peticiones','Creada'];
+  const rows=r.map(x=>{
+    const s=SERVICIOS[x.tipo_servicio];
+    return [`#SB-${x.id}`,x.nombre,x.email||'',x.telefono||'',s?s.nombre:x.tipo_servicio,x.fecha,s?s.horario:'',x.huespedes,x.precio||0,x.estado,x.peticiones||'',x.created_at||'']
+      .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',');
+  });
+  const csv=[headers.join(','),...rows].join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;
+  a.download=`summerboat-reservas-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();URL.revokeObjectURL(url);
+  toast('CSV exportado correctamente');
+}
+
+// ── HELPERS ──
+function cerrar(id){ document.getElementById(id).classList.remove('open'); }
+function cerrarOverlay(e,id){ if(e.target===document.getElementById(id)) cerrar(id); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.overlay.open,.detail-overlay.open').forEach(o=>o.classList.remove('open')); });
+
+// ── AUTO REFRESH ──
+setInterval(()=>{ if(getToken()) cargarReservas(); }, 60000);
 </script>
 </body>
 </html>
