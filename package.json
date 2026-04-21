@@ -1,17 +1,17 @@
 {
-  "name": "blue-motion-charter",
+  "name": "summerboat",
   "version": "1.0.0",
-  "description": "Blue Motion Charter - Excursiones en barco Palma de Mallorca",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.24.0",
-    "better-sqlite3": "^8.6.0",
+    "@anthropic-ai/sdk": "^0.86.1",
+    "better-sqlite3": "^12.8.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
-    "resend": "^3.2.0"
+    "express-rate-limit": "^8.3.2",
+    "resend": "^6.10.0"
   }
 }
