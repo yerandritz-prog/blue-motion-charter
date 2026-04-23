@@ -945,6 +945,8 @@ window.setLang = function(l) {
   if(t.footerExcLinks){var fexcl=document.querySelectorAll('.footer-col:nth-child(2) li');fexcl.forEach(function(el,i){var a=el.querySelector('a');if(a&&t.footerExcLinks[i])a.textContent=t.footerExcLinks[i];else if(t.footerExcLinks[i])el.textContent=t.footerExcLinks[i];});}
   var fct=document.querySelector('.footer-col:nth-child(3) h5');if(fct&&t.footerContactTitle)fct.textContent=t.footerContactTitle;
   var fcopy=document.querySelector('.footer-bottom span:first-child');if(fcopy&&t.footerCopyright)fcopy.textContent=t.footerCopyright;
+  // Capitán Marco — sincronizar idioma y resetear historial
+  window.marcoLang=l;
   // Capitán Marco — nombre y status
   var cstat=document.getElementById('marcoStatus');if(cstat&&t.chatStatus)cstat.textContent=t.chatStatus;
   var cwelcome=document.getElementById('welcomeMsg');if(cwelcome&&t.chatWelcome)cwelcome.innerHTML=t.chatWelcome;
@@ -962,17 +964,48 @@ window.scrollToReserva = function(){
   var URL=window.location.protocol==='file:'?'https://blue-motion-charter-production.up.railway.app':window.location.origin;
   var open=false,loading=false,hist=[];
 
-  // Mensajes proactivos por sección
-  var PROACTIVE={
-    excursiones:['&iquest;Alguna excursi&oacute;n te llama la atenci&oacute;n? &#128205; Te compruebo disponibilidad al momento.',3000],
-    barco:['Este es nuestro barco &mdash; cabe hasta 8 personas y el precio es por salida completa &#128761; &iquest;Sois grupo grande?',2500],
-    patron:['&iquest;Tienes licencia n&aacute;utica o prefer&iacute;s patr&oacute;n incluido? Cualquier opci&oacute;n tiene el mismo precio &#9875;',2000],
-    ubicacion:['Estamos en pleno Paseo Mar&iacute;timo de Palma &#128205; &iquest;Necesitas indicaciones para llegar?',2000],
-    opiniones:['Nuestros clientes repiten cada a&ntilde;o &#11088; &iquest;Te ayudo a reservar tu primera excursi&oacute;n?',2000],
-    reserva:['&iexcl;Casi listos para zarpar! &#127754; Si tienes alguna duda antes de reservar, preg&uacute;ntame.',1200]
+  // Idioma activo (sincronizado con setLang)
+  window.marcoLang='es';
+
+  // Mensajes proactivos por sección e idioma
+  var PROACTIVE_MSGS={
+    es:{
+      excursiones:['&iquest;Alguna excursi&oacute;n te llama la atenci&oacute;n? &#128205; Te compruebo disponibilidad al momento.',3000],
+      barco:['Este es nuestro barco &mdash; cabe hasta 8 personas y el precio es por salida completa &#128761; &iquest;Sois grupo grande?',2500],
+      patron:['&iquest;Tienes licencia n&aacute;utica o prefer&iacute;s patr&oacute;n incluido? Cualquier opci&oacute;n tiene el mismo precio &#9875;',2000],
+      ubicacion:['Estamos en pleno Paseo Mar&iacute;timo de Palma &#128205; &iquest;Necesitas indicaciones para llegar?',2000],
+      opiniones:['Nuestros clientes repiten cada a&ntilde;o &#11088; &iquest;Te ayudo a reservar tu primera excursi&oacute;n?',2000],
+      reserva:['&iexcl;Casi listos para zarpar! &#127754; Si tienes alguna duda antes de reservar, preg&uacute;ntame.',1200],
+      _welcome:['&iexcl;Hola! Soy el Capit&aacute;n Marco &#9875; &iquest;Te ayudo a encontrar tu excursi&oacute;n perfecta en Mallorca?',2500]
+    },
+    en:{
+      excursiones:['Do any of our trips catch your eye? &#128205; I can check availability right now.',3000],
+      barco:['This is our boat &mdash; up to 8 people and the price is per full trip, not per person &#128761; Are you a large group?',2500],
+      patron:['Do you have a nautical licence or would you prefer a skipper included? Same price either way &#9875;',2000],
+      ubicacion:['We\'re right on the Paseo Mar&iacute;timo in Palma &#128205; Need directions to get here?',2000],
+      opiniones:['Our guests come back every year &#11088; Can I help you book your first trip?',2000],
+      reserva:['Almost ready to set sail! &#127754; Any questions before booking? Just ask.',1200],
+      _welcome:['Hello! I\'m Captain Marco &#9875; Can I help you find your perfect excursion in Mallorca?',2500]
+    },
+    de:{
+      excursiones:['Gef&auml;llt Ihnen einer unserer Ausfl&uuml;ge? &#128205; Ich kann sofort die Verf&uuml;gbarkeit pr&uuml;fen.',3000],
+      barco:['Das ist unser Boot &mdash; bis zu 8 Personen, Preis pro Ausfahrt, nicht pro Person &#128761; Sind Sie eine gro&szlig;e Gruppe?',2500],
+      patron:['Haben Sie einen Bootsf&uuml;hrerschein oder m&ouml;chten Sie einen Skipper dabei? Gleicher Preis &#9875;',2000],
+      ubicacion:['Wir befinden uns direkt am Paseo Mar&iacute;timo in Palma &#128205; Ben&ouml;tigen Sie eine Wegbeschreibung?',2000],
+      opiniones:['Unsere G&auml;ste kommen jedes Jahr wieder &#11088; Darf ich Ihnen bei der ersten Buchung helfen?',2000],
+      reserva:['Fast bereit zum Auslaufen! &#127754; Haben Sie noch Fragen vor der Buchung?',1200],
+      _welcome:['Hallo! Ich bin Kapit&auml;n Marco &#9875; Darf ich Ihnen helfen, den perfekten Ausflug in Mallorca zu finden?',2500]
+    }
   };
+
   var shownSections={};
   var bubbleTimer=null;
+
+  function getProactive(sec){
+    var lang=window.marcoLang||'es';
+    var msgs=PROACTIVE_MSGS[lang]||PROACTIVE_MSGS.es;
+    return msgs[sec]||null;
+  }
 
   // Detección de sección por scroll
   var SECTIONS=['excursiones','barco','patron','ubicacion','opiniones','reserva'];
@@ -991,11 +1024,13 @@ window.scrollToReserva = function(){
   window.addEventListener('scroll',function(){
     if(open)return;
     var sec=detectSection();
-    if(sec&&sec!==lastSection&&!shownSections[sec]&&PROACTIVE[sec]){
-      lastSection=sec;
-      clearTimeout(bubbleTimer);
-      var data=PROACTIVE[sec];
-      bubbleTimer=setTimeout(function(){showBubble(data[0],sec);},data[1]);
+    if(sec&&sec!==lastSection&&!shownSections[sec]){
+      var data=getProactive(sec);
+      if(data){
+        lastSection=sec;
+        clearTimeout(bubbleTimer);
+        bubbleTimer=setTimeout(function(){showBubble(data[0],sec);},data[1]);
+      }
     }
   });
 
@@ -1008,10 +1043,8 @@ window.scrollToReserva = function(){
     if(!b||!t)return;
     t.innerHTML=text;
     b.style.display='block';
-    // Pulse en avatar
     var ping=document.getElementById('marcoPing');
     if(ping)ping.style.display='block';
-    // Auto-ocultar tras 8s
     clearTimeout(bubbleTimer);
     bubbleTimer=setTimeout(function(){dismissBubble();},8000);
   }
@@ -1023,10 +1056,7 @@ window.scrollToReserva = function(){
     if(ping)ping.style.display='none';
   };
 
-  window.openFromBubble=function(){
-    dismissBubble();
-    openChat();
-  };
+  window.openFromBubble=function(){dismissBubble();openChat();};
 
   // Toggle chat
   function openChat(){open=true;document.getElementById('chatWindow').classList.add('open');document.getElementById('marcoLauncher').style.display='none';document.getElementById('marcoPlanBadge').style.display='none';window.dismissBubble();}
@@ -1053,11 +1083,17 @@ window.scrollToReserva = function(){
   }
   function removeTyping(){var t=document.getElementById('typingIndicator');if(t)t.remove();}
 
-  // Envío al backend
+  // Envío al backend — incluye idioma activo
   function send(msg){
+    // Primer mensaje: añadir instrucción de idioma al historial
+    var langNames={es:'Spanish',en:'English',de:'German'};
+    var langMsg='[Language: respond exclusively in '+( langNames[window.marcoLang||'es']||'Spanish')+' for this entire conversation]';
+    var messages=hist.length===0
+      ?[{role:'user',content:langMsg},{role:'assistant',content:'Understood, I will respond in '+( langNames[window.marcoLang||'es']||'Spanish')+'.'},{role:'user',content:msg}]
+      :[].concat(hist).concat([{role:'user',content:msg}]);
     hist.push({role:'user',content:msg});
     showTyping();
-    fetch(URL+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist})})
+    fetch(URL+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:messages})})
       .then(function(r){return r.json();})
       .then(function(d){
         removeTyping();
@@ -1098,7 +1134,8 @@ window.scrollToReserva = function(){
   setTimeout(function(){
     if(!open&&!shownSections['_welcome']){
       shownSections['_welcome']=true;
-      showBubble('&iexcl;Hola! Soy el Capit&aacute;n Marco &#9875; &iquest;Te ayudo a encontrar tu excursi&oacute;n perfecta en Mallorca?','_welcome');
+      var data=getProactive('_welcome');
+      if(data)showBubble(data[0],'_welcome');
     }
   },2500);
 })();
