@@ -3,791 +3,245 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex,nofollow">
-<title>Blue Motion Charter · Administración</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%230A1D37'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='%23C9A961'%3E%E2%9A%93%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Blue Motion Charter · Panel de Administración</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --ink:#0A1D37;
-  --ink-2:#132843;
-  --ink-3:#1F3A5F;
-  --brass:#B08D57;
-  --brass-2:#C9A961;
-  --brass-3:#DDC894;
-  --brass-soft:rgba(176,141,87,0.10);
-  --brass-line:rgba(201,169,97,0.18);
-  --cream:#FAF7F0;
-  --ivory:#F5F0E4;
-  --paper:#FBFAF5;
-  --stone:#F0EBDF;
-  --sand:#E5DDCB;
-  --line:#D5CCB7;
-  --line-soft:#E8E2D2;
-  --text:#16181D;
-  --text-muted:#7C7669;
-  --text-dim:#ACA694;
+  --navy:#0A3D6B;
+  --navy-light:#1565A0;
+  --blue:#1E88E5;
+  --cyan:#0097A7;
+  --cream:#FAFAF8;
+  --sand:#F5F0E8;
   --white:#FFFFFF;
-  --success:#5A7A4F;
-  --success-pale:#E9EFE4;
-  --error:#8B3A3A;
-  --error-pale:#F0E4E4;
-  --sidebar:260px;
+  --text:#1C1C1C;
+  --text-muted:#6B7280;
+  --border:#E5E7EB;
 }
-html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--text);display:flex;min-height:100vh;font-weight:300;line-height:1.65;letter-spacing:0.005em}
-::selection{background:var(--brass);color:var(--white)}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);font-size:14px}
 
-/* LOGIN */
-#loginScreen{position:fixed;inset:0;background:var(--ink);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s;padding:1rem}
-#loginScreen::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(201,169,97,0.08) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(201,169,97,0.06) 0%,transparent 50%)}
-#loginScreen.hidden{opacity:0;pointer-events:none}
-.login-card{background:#fff;padding:3.2rem 2.8rem;width:100%;max-width:400px;position:relative;z-index:1;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
-.login-logo{text-align:center;margin-bottom:2.5rem}
-.login-logo .brand{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;color:var(--ink);letter-spacing:0.03em}
-.login-logo .brand span{font-style:italic;font-weight:400;color:var(--brass)}
-.login-logo .sub{font-size:0.62rem;color:var(--text-muted);letter-spacing:0.32em;text-transform:uppercase;margin-top:10px;font-weight:500}
-.login-logo::after{content:'';display:block;width:40px;height:1px;background:var(--brass);margin:1.2rem auto 0}
-.login-field{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.2rem}
-.login-field label{font-size:0.6rem;font-weight:500;color:var(--text);letter-spacing:0.26em;text-transform:uppercase}
-.login-field input{border:none;border-bottom:1px solid var(--line);padding:0.75rem 0;font-size:0.95rem;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.3s;background:transparent;color:var(--ink);font-weight:300}
-.login-field input:focus{border-bottom-color:var(--brass)}
-.login-btn{width:100%;padding:0.95rem;background:var(--ink);color:#fff;border:none;font-size:0.66rem;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.3s;margin-top:1rem;letter-spacing:0.28em;text-transform:uppercase}
-.login-btn:hover{background:var(--brass);color:var(--ink)}
-.login-btn:disabled{opacity:0.6;cursor:wait}
-.login-error{background:var(--error-pale);border-left:2px solid var(--error);color:#6B2929;padding:0.7rem 1rem;font-size:0.82rem;margin-bottom:1rem;display:none;line-height:1.5}
-
-/* SIDEBAR */
-.sidebar{width:var(--sidebar);background:var(--ink);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50;overflow-y:auto;border-right:1px solid var(--brass-line)}
-.sidebar::-webkit-scrollbar{width:3px}
-.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1)}
-.sidebar-logo{padding:2rem 1.8rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.08)}
-.sidebar-logo .brand{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:#fff;font-weight:500;letter-spacing:0.03em;line-height:1.2}
-.sidebar-logo .brand span{font-style:italic;font-weight:400;color:var(--brass-2)}
-.sidebar-logo .sub{font-size:0.58rem;color:rgba(255,255,255,0.4);letter-spacing:0.3em;text-transform:uppercase;margin-top:10px;font-weight:500}
-.sidebar-logo::after{content:'';display:block;width:28px;height:1px;background:var(--brass);margin-top:0.9rem}
-.nav-section{padding:1.5rem 0 1rem}
-.nav-label{font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.35);padding:0.8rem 1.8rem 0.5rem;font-weight:500}
-.nav-item{display:flex;align-items:center;gap:0.7rem;padding:0.7rem 1.8rem;font-size:0.78rem;color:rgba(255,255,255,0.65);cursor:pointer;transition:all 0.2s;border-left:2px solid transparent;user-select:none;letter-spacing:0.02em;font-weight:400}
-.nav-item:hover{background:rgba(201,169,97,0.04);color:#fff;border-left-color:var(--brass-line)}
-.nav-item.active{background:rgba(201,169,97,0.08);color:#fff;border-left-color:var(--brass-2)}
-.nav-item::before{content:'—';color:var(--brass);margin-right:6px;font-weight:300;opacity:0.6;transition:opacity 0.2s}
-.nav-item.active::before,.nav-item:hover::before{opacity:1}
-.sidebar-footer{margin-top:auto;padding:1.2rem 1.8rem;border-top:1px solid rgba(255,255,255,0.08)}
-.online-dot{width:6px;height:6px;background:var(--brass-2);border-radius:50%;display:inline-block;margin-right:6px}
-.version{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.8rem;color:rgba(255,255,255,0.35);margin-top:4px}
-
-/* MAIN */
-.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh;min-width:0}
-.topbar{background:#fff;border-bottom:1px solid var(--line);padding:1.1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40;gap:1rem;flex-wrap:wrap}
-.page-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--ink);letter-spacing:0.02em}
-.page-title em{font-style:italic;color:var(--brass)}
-.topbar-right{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.65rem 1.2rem;font-size:0.64rem;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.25s;border:none;letter-spacing:0.22em;text-transform:uppercase;white-space:nowrap}
-.btn-ink{background:var(--ink);color:#fff}
-.btn-ink:hover{background:var(--brass);color:var(--ink)}
-.btn-outline{background:transparent;border:1px solid var(--line);color:var(--text-muted)}
-.btn-outline:hover{border-color:var(--brass);color:var(--brass)}
-.btn-sm{padding:0.5rem 0.9rem;font-size:0.6rem}
-.btn-danger{background:transparent;border:1px solid rgba(139,58,58,0.25);color:var(--error)}
-.btn-danger:hover{background:var(--error-pale)}
-.btn-icon-only{padding:0.55rem 0.7rem;min-width:32px;justify-content:center}
-.search-wrap{position:relative}
-.search-wrap input{border:none;border-bottom:1px solid var(--line);background:transparent;padding:0.55rem 0.9rem 0.55rem 1.8rem;font-size:0.85rem;font-family:'Inter',sans-serif;outline:none;width:220px;transition:all 0.25s;color:var(--ink);font-weight:300}
-.search-wrap input:focus{border-bottom-color:var(--brass)}
-.search-wrap input::placeholder{color:var(--text-dim);font-weight:300}
-.search-icon{position:absolute;left:0.3rem;top:50%;transform:translateY(-50%);font-size:0.8rem;color:var(--brass);font-weight:300}
+/* TOPBAR — igual que el nav de la web */
+.topbar{background:rgba(10,61,107,0.97);backdrop-filter:blur(10px);color:white;padding:0.9rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15)}
+.topbar-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;letter-spacing:0.02em}
+.topbar-logo span{font-style:italic;color:#64B5F6}
+.topbar-sub{font-size:0.72rem;color:rgba(255,255,255,0.5);margin-top:3px;letter-spacing:0.04em}
+.topbar-right{font-size:0.75rem;color:rgba(255,255,255,0.55);text-align:right}
+.topbar-badge{display:inline-block;background:var(--cyan);color:white;font-size:0.65rem;padding:0.2rem 0.6rem;border-radius:2px;letter-spacing:0.06em;font-weight:500;margin-top:4px}
 
 /* CONTENT */
-.content{padding:2rem;flex:1}
+.content{padding:2rem;max-width:1200px;margin:0 auto}
 
 /* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-bottom:2rem}
-.stat-card{background:#fff;border:1px solid var(--line);padding:1.6rem 1.5rem;transition:all 0.3s;position:relative}
-.stat-card::before{content:'';position:absolute;top:0;left:0;width:28px;height:1px;background:var(--brass)}
-.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--brass)}
-.stat-label{font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.9rem;font-weight:500}
-.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:400;color:var(--ink);line-height:1;letter-spacing:-0.01em}
-.stat-num em{font-style:italic;color:var(--brass)}
-.stat-sub{font-size:0.68rem;color:var(--text-muted);margin-top:0.6rem;letter-spacing:0.04em;font-weight:400}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-card{background:var(--white);border-radius:4px;padding:1.4rem 1.5rem;box-shadow:0 1px 4px rgba(0,0,0,0.05);border-left:3px solid var(--color);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat-card.navy{--color:#0A3D6B}
+.stat-card.blue{--color:#1E88E5}
+.stat-card.cyan{--color:#0097A7}
+.stat-card.green{--color:#0097A7}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;color:var(--navy);line-height:1}
+.stat-label{font-size:0.68rem;color:var(--text-muted);margin-top:6px;text-transform:uppercase;letter-spacing:0.12em;font-weight:500}
+.stat-sub{font-size:0.75rem;color:#9CA3AF;margin-top:6px}
 
-/* FILTROS */
-.filters-bar{background:#fff;border:1px solid var(--line);padding:1rem 1.4rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
-.filter-chip{padding:0.45rem 1rem;border:1px solid var(--line);font-size:0.66rem;color:var(--text-muted);cursor:pointer;transition:all 0.2s;background:transparent;font-family:'Inter',sans-serif;letter-spacing:0.15em;text-transform:uppercase;font-weight:500}
-.filter-chip:hover{border-color:var(--brass);color:var(--brass)}
-.filter-chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
-.filter-label{font-size:0.6rem;color:var(--text-muted);font-weight:500;letter-spacing:0.26em;text-transform:uppercase;margin-right:0.4rem}
-.counter{font-size:0.72rem;color:var(--text-muted);margin-left:auto;white-space:nowrap;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.9rem}
+/* SECTION TITLE */
+.section-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:var(--navy);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.section-title em{font-style:italic;color:var(--cyan)}
 
-/* TABLE */
-.table-wrap{background:#fff;border:1px solid var(--line);overflow:hidden;overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:960px}
-thead{background:var(--paper)}
-th{padding:1rem 1.1rem;font-size:0.58rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
-td{padding:1.1rem 1.1rem;font-size:0.86rem;border-bottom:1px solid var(--line-soft);vertical-align:middle;font-weight:300}
-tr:last-child td{border-bottom:none}
-tr:hover td{background:var(--brass-soft)}
-.empty td{text-align:center;padding:4rem 2rem;color:var(--text-muted)}
-.empty-icon{font-size:1.5rem;display:block;margin-bottom:0.7rem;color:var(--brass);font-family:'Cormorant Garamond',serif}
+/* TABLA */
+.table-wrap{background:var(--white);border-radius:4px;border:1px solid var(--border);overflow:hidden;margin-bottom:2rem;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--navy)}
+thead th{color:rgba(255,255,255,0.85);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;padding:11px 16px;text-align:left;font-weight:500}
+tbody tr{border-bottom:1px solid #F3F4F6;transition:background 0.15s}
+tbody tr:hover{background:var(--sand)}
+tbody tr:last-child{border-bottom:none}
+td{padding:11px 16px;font-size:0.84rem;color:#4A4A4A;vertical-align:middle}
+td strong{color:var(--navy);font-weight:600}
 
 /* BADGES */
-.badge{display:inline-flex;align-items:center;gap:0.35rem;padding:0.3rem 0.75rem;font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;border:1px solid;background:transparent}
-.badge-confirmed{color:var(--success);border-color:rgba(90,122,79,0.35)}
-.badge-cancelled{color:var(--error);border-color:rgba(139,58,58,0.3)}
-.serv-badge{padding:0.3rem 0.8rem;font-size:0.6rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;white-space:nowrap;border:1px solid var(--line);color:var(--ink);background:var(--paper)}
-.serv-medio{background:rgba(201,169,97,0.06);color:var(--brass);border-color:rgba(201,169,97,0.3)}
-.serv-dia{background:var(--ink);color:var(--brass-2);border-color:var(--ink)}
-.serv-sunset{background:rgba(176,141,87,0.12);color:#8B6A3A;border-color:rgba(176,141,87,0.35)}
-.action-btns{display:flex;gap:0.3rem}
-.btn-icon{width:30px;height:30px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.2s;background:transparent;color:var(--text-muted)}
-.btn-icon.cancel{color:var(--error)}
-.btn-icon.cancel:hover{background:var(--error-pale)}
-.btn-icon:disabled{opacity:0.3;cursor:default}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:2px;font-size:0.7rem;font-weight:500;letter-spacing:0.04em}
+.badge.confirmada{background:#DBEAFE;color:#1565A0}
+.badge.cancelada{background:#FEE2E2;color:#B91C1C}
+.badge.medio_dia{background:#E0F7FA;color:#006064}
+.badge.dia_completo{background:#E3F2FD;color:#0A3D6B}
+.badge.puesta_de_sol{background:#FFF3E0;color:#E65100}
 
-.ref-cell{font-family:'Cormorant Garamond',serif;color:var(--brass);font-weight:500;font-size:0.95rem;font-style:italic;white-space:nowrap}
-.price-cell{font-family:'Cormorant Garamond',serif;color:var(--ink);font-weight:500;font-size:1.1rem;white-space:nowrap}
-.price-cell.empty-price{color:var(--text-dim);font-style:italic}
+/* BOTONES */
+.btn-cancel{background:transparent;border:1px solid var(--border);padding:4px 12px;border-radius:2px;font-size:0.73rem;cursor:pointer;color:var(--text-muted);transition:all 0.2s;font-family:inherit}
+.btn-cancel:hover{border-color:#EF4444;color:#EF4444;background:#FEF2F2}
+.refresh-btn{background:var(--navy);color:white;border:none;padding:0.48rem 1.1rem;border-radius:2px;font-size:0.78rem;cursor:pointer;font-family:inherit;transition:background 0.2s;font-weight:500;letter-spacing:0.04em}
+.refresh-btn:hover{background:var(--blue)}
 
-/* MODALES */
-.overlay{position:fixed;inset:0;background:rgba(10,29,55,0.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
-.overlay.open{display:flex;animation:fadeIn 0.25s}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal{background:#fff;padding:2.5rem;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;border:1px solid var(--line);box-shadow:var(--shadow-lg);animation:slideUp 0.3s cubic-bezier(0.4,0,0.2,1)}
-@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.modal h2{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;margin-bottom:0.4rem;color:var(--ink);letter-spacing:0.01em}
-.modal h2 em{font-style:italic;color:var(--brass)}
-.modal .modal-sub{font-size:0.62rem;color:var(--text-muted);letter-spacing:0.28em;text-transform:uppercase;font-weight:500;margin-bottom:2rem}
-.modal-form-group{display:flex;flex-direction:column;gap:0.45rem;margin-bottom:1.3rem}
-.modal-form-group label{font-size:0.6rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--text-muted)}
-.modal-form-group input,.modal-form-group select,.modal-form-group textarea{border:none;border-bottom:1px solid var(--line);padding:0.6rem 0;font-size:0.9rem;font-family:'Inter',sans-serif;outline:none;width:100%;transition:border-color 0.25s;color:var(--ink);background:transparent;font-weight:300;border-radius:0}
-.modal-form-group input:focus,.modal-form-group select:focus,.modal-form-group textarea:focus{border-bottom-color:var(--brass)}
-.modal-form-group textarea{resize:vertical;min-height:60px;border:1px solid var(--line);padding:0.7rem 0.9rem}
-.modal-form-group textarea:focus{border-color:var(--brass)}
-.modal-form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.modal-preview{background:var(--brass-soft);border-left:2px solid var(--brass);padding:0.9rem 1.2rem;font-size:0.85rem;margin-bottom:1.4rem;display:none;color:var(--ink);line-height:1.5;font-weight:400}
-.modal-preview .price{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--brass);font-weight:500}
-.modal-actions{display:flex;justify-content:flex-end;gap:0.8rem;margin-top:1.8rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+/* FILTROS */
+.filter-row{display:flex;gap:0.75rem;margin-bottom:1rem;align-items:center;flex-wrap:wrap}
+.filter-select{background:var(--white);border:1px solid var(--border);padding:0.42rem 0.85rem;border-radius:2px;font-size:0.8rem;font-family:inherit;color:var(--text-muted);outline:none;transition:border-color 0.2s}
+.filter-select:focus{border-color:var(--navy)}
 
-/* DETAIL PANEL */
-.detail-overlay{position:fixed;inset:0;background:rgba(10,29,55,0.4);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:flex-end}
-.detail-overlay.open{display:flex;animation:fadeIn 0.25s}
-.detail-panel{background:#fff;width:460px;max-width:100%;min-height:100vh;padding:2.2rem;overflow-y:auto;box-shadow:-12px 0 40px rgba(10,29,55,0.15);animation:slideInRight 0.35s cubic-bezier(0.4,0,0.2,1);border-left:1px solid var(--line)}
-@keyframes slideInRight{from{transform:translateX(30px);opacity:0}to{transform:translateX(0);opacity:1}}
-.detail-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.8rem}
-.detail-ref{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:400;color:var(--ink);letter-spacing:0.01em;font-style:italic}
-.detail-importe-box{background:var(--ink);color:#fff;padding:1.3rem 1.5rem;margin-bottom:1.8rem;position:relative;overflow:hidden}
-.detail-importe-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--brass)}
-.detail-importe-label{font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.4rem;font-weight:500}
-.detail-importe{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--brass-2);font-weight:400;line-height:1;letter-spacing:-0.01em}
-.detail-row{display:flex;flex-direction:column;gap:0.3rem;padding:1rem 0;border-bottom:1px solid var(--line-soft)}
-.detail-row:last-child{border-bottom:none}
-.detail-row-label{font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-muted);font-weight:500}
-.detail-row-val{font-size:0.95rem;font-weight:400;color:var(--ink)}
-.detail-row-val a{color:var(--brass);text-decoration:none}
-.detail-row-val a:hover{text-decoration:underline}
+/* PATRÓN BADGE */
+.patron-badge{font-size:0.75rem;color:var(--cyan);font-weight:500}
 
-/* TOAST */
-.toast-container{position:fixed;bottom:1.8rem;right:1.8rem;display:flex;flex-direction:column;gap:0.6rem;z-index:300}
-.toast{padding:0.9rem 1.3rem;font-size:0.82rem;font-weight:400;box-shadow:var(--shadow-md);animation:toastIn 0.35s cubic-bezier(0.4,0,0.2,1);border-left:2px solid;background:#fff;max-width:360px;letter-spacing:0.02em}
-.toast.success{border-left-color:var(--success);color:#2D4022;background:var(--success-pale)}
-.toast.error{border-left-color:var(--error);color:#6B2929;background:var(--error-pale)}
-.toast.info{border-left-color:var(--brass);color:var(--ink);background:var(--brass-soft)}
-@keyframes toastIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+/* EMPTY */
+.empty{text-align:center;padding:3rem;color:#9CA3AF;font-size:0.88rem}
 
 /* MOBILE */
-@media(max-width:960px){
-  :root{--sidebar:0px}
-  .sidebar{transform:translateX(-100%);width:260px;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);box-shadow:none}
-  .sidebar.open{transform:translateX(0);box-shadow:12px 0 40px rgba(0,0,0,0.2)}
-  .main{margin-left:0}
-  .menu-toggle{display:inline-flex}
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .detail-panel{width:100%}
-}
-.menu-toggle{display:none;background:transparent;border:1px solid var(--line);padding:0.5rem 0.7rem;cursor:pointer;color:var(--ink);font-size:1rem}
-@media(max-width:520px){
-  .content{padding:1.2rem}
-  .stats-row{grid-template-columns:1fr;gap:0.8rem}
-  .modal{padding:1.8rem}
-  .modal-form-row{grid-template-columns:1fr}
-  .topbar{padding:0.9rem 1.2rem}
-  .search-wrap input{width:140px}
+@media(max-width:768px){
+  .topbar{padding:0.75rem 1rem}
+  .topbar-logo{font-size:1rem}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .content{padding:1rem}
+  .filter-row{flex-direction:column;align-items:stretch}
+  table{font-size:0.76rem}
+  thead th,td{padding:8px 10px}
+  .stat-num{font-size:1.7rem}
 }
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
-<div id="loginScreen">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="brand"><span>Blue Motion</span> Charter</div>
-      <div class="sub">Administración</div>
-    </div>
-    <div class="login-error" id="loginError"></div>
-    <form onsubmit="hacerLogin(event)">
-      <div class="login-field">
-        <label>Contraseña</label>
-        <input type="password" id="loginPass" placeholder="••••••••" autofocus>
-      </div>
-      <button class="login-btn" type="submit" id="loginBtn">Acceder</button>
-    </form>
+<div class="topbar">
+  <div>
+    <div class="topbar-logo"><span>Blue Motion</span> Charter</div>
+    <div class="topbar-sub">Panel de Administración &middot; Naviera Balear, Palma</div>
+  </div>
+  <div style="text-align:right">
+    <div class="topbar-right" id="lastUpdate">Cargando...</div>
+    <div class="topbar-badge">Admin</div>
   </div>
 </div>
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo">
-    <div class="brand"><span>Blue Motion</span> Charter</div>
-    <div class="sub">Administración · 2026</div>
-  </div>
-  <nav class="nav-section">
-    <div class="nav-label">Reservas</div>
-    <div class="nav-item active" data-nav="todas" onclick="setVista('todas',this)">Todas</div>
-    <div class="nav-item" data-nav="hoy" onclick="setVista('hoy',this)">Hoy</div>
-    <div class="nav-item" data-nav="semana" onclick="setVista('semana',this)">Próximos 7 días</div>
-    <div class="nav-item" data-nav="mes" onclick="setVista('mes',this)">Este mes</div>
-    <div class="nav-label">Por servicio</div>
-    <div class="nav-item" data-nav="srv-medio_dia" onclick="filtrarPor('medio_dia',this)">Medio Día</div>
-    <div class="nav-item" data-nav="srv-dia_completo" onclick="filtrarPor('dia_completo',this)">Día Completo</div>
-    <div class="nav-item" data-nav="srv-sunset" onclick="filtrarPor('sunset',this)">Puesta de Sol</div>
-    <div class="nav-label">Herramientas</div>
-    <div class="nav-item" onclick="exportCSV()">Exportar CSV</div>
-    <div class="nav-item" onclick="window.open('index.html','_blank')">Web pública</div>
-  </nav>
-  <div class="sidebar-footer">
-    <div style="font-size:0.72rem;color:rgba(255,255,255,0.55);letter-spacing:0.04em"><span class="online-dot"></span>Sistema activo</div>
-    <div class="version">v2 · Temporada 2026</div>
-  </div>
-</aside>
-
-<!-- MAIN -->
-<div class="main">
-  <div class="topbar">
-    <div style="display:flex;align-items:center;gap:1rem">
-      <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-      <div class="page-title" id="pageTitle">Reservas</div>
-    </div>
-    <div class="topbar-right">
-      <div class="search-wrap">
-        <span class="search-icon">⌕</span>
-        <input type="text" id="searchInput" placeholder="Buscar cliente, email, ref…" oninput="buscar()">
-      </div>
-      <button class="btn btn-outline btn-sm btn-icon-only" onclick="cargarReservas()" title="Actualizar">↻</button>
-      <button class="btn btn-ink btn-sm" onclick="abrirModalNueva()">+ Nueva reserva</button>
-      <button class="btn btn-sm btn-danger" onclick="cerrarSesion()">Salir</button>
-    </div>
+<div class="content">
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card navy"><div class="stat-num" id="statTotal">-</div><div class="stat-label">Reservas totales</div></div>
+    <div class="stat-card blue"><div class="stat-num" id="statHoy">-</div><div class="stat-label">Reservas hoy</div></div>
+    <div class="stat-card cyan"><div class="stat-num" id="statProximas">-</div><div class="stat-label">Pr&oacute;ximas salidas</div></div>
+    <div class="stat-card green"><div class="stat-num" id="statIngresos">-</div><div class="stat-label">Ingresos estimados</div></div>
   </div>
 
-  <div class="content">
-    <!-- STATS -->
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">Salidas hoy</div>
-        <div class="stat-num" id="statHoy">—</div>
-        <div class="stat-sub">confirmadas</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Esta semana</div>
-        <div class="stat-num" id="statSemana">—</div>
-        <div class="stat-sub">próximas salidas</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Este mes</div>
-        <div class="stat-num" id="statMes">—</div>
-        <div class="stat-sub">reservas confirmadas</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Ingresos mes</div>
-        <div class="stat-num" id="statIngresosMes">—</div>
-        <div class="stat-sub" id="statIngresosTotal">—</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Actualizado</div>
-        <div class="stat-num" style="font-size:1.1rem;font-style:italic;color:var(--brass)" id="lastUpdate">—</div>
-        <div class="stat-sub">refresco automático 60s</div>
-      </div>
-    </div>
+  <div class="section-title">&#9875; Reservas de <em>excursiones</em></div>
 
-    <!-- FILTROS -->
-    <div class="filters-bar">
-      <span class="filter-label">Estado</span>
-      <button class="filter-chip active" data-filter="todas" onclick="activarFiltro(this)">Todas</button>
-      <button class="filter-chip" data-filter="confirmadas" onclick="activarFiltro(this)">Confirmadas</button>
-      <button class="filter-chip" data-filter="canceladas" onclick="activarFiltro(this)">Canceladas</button>
-      <span class="counter" id="contadorResultados">—</span>
-    </div>
+  <div class="filter-row">
+    <select class="filter-select" id="filtroEstado" onchange="renderTabla()">
+      <option value="">Todos los estados</option>
+      <option value="confirmada">Confirmadas</option>
+      <option value="cancelada">Canceladas</option>
+    </select>
+    <select class="filter-select" id="filtroExc" onchange="renderTabla()">
+      <option value="">Todas las excursiones</option>
+      <option value="medio_dia">Medio d&iacute;a</option>
+      <option value="dia_completo">D&iacute;a completo</option>
+      <option value="puesta_de_sol">Puesta de sol</option>
+    </select>
+    <button class="refresh-btn" onclick="cargar()">&#8635; Actualizar</button>
+  </div>
 
-    <!-- TABLE -->
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Ref.</th>
-            <th>Cliente</th>
-            <th>Servicio</th>
-            <th>Fecha</th>
-            <th>Horario</th>
-            <th style="text-align:center">Pax</th>
-            <th>Patrón</th>
-            <th style="text-align:right">Precio</th>
-            <th>Estado</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-          <tr class="empty"><td colspan="10"><span class="empty-icon">◦</span>Cargando…</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Excursi&oacute;n</th>
+          <th>Fecha</th>
+          <th>Personas</th>
+          <th>Patr&oacute;n</th>
+          <th>Contacto</th>
+          <th>Estado</th>
+          <th>Acci&oacute;n</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBody">
+        <tr><td colspan="9" class="empty">Cargando reservas...</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
-
-<!-- MODAL NUEVA -->
-<div class="overlay" id="overlayNueva" onclick="cerrarOverlay(event,'overlayNueva')">
-  <div class="modal">
-    <h2>Nueva <em>reserva</em></h2>
-    <div class="modal-sub">Alta manual</div>
-    <form onsubmit="crearReservaManual(event)">
-      <div class="modal-form-row">
-        <div class="modal-form-group">
-          <label>Fecha</label>
-          <input type="date" id="fn-fecha" required>
-        </div>
-        <div class="modal-form-group">
-          <label>Servicio</label>
-          <select id="fn-servicio" required onchange="actualizarPreviewNueva()">
-            <option value="">Selecciona…</option>
-            <option value="medio_dia">Medio Día · 350€</option>
-            <option value="dia_completo">Día Completo · 650€</option>
-            <option value="sunset">Puesta de Sol · 280€</option>
-          </select>
-        </div>
-      </div>
-      <div id="fn-preview" class="modal-preview"></div>
-      <div class="modal-form-row">
-        <div class="modal-form-group">
-          <label>Nombre</label>
-          <input type="text" id="fn-nombre" required>
-        </div>
-        <div class="modal-form-group">
-          <label>Personas</label>
-          <input type="number" id="fn-huespedes" min="1" max="8" value="2" required>
-        </div>
-      </div>
-      <div class="modal-form-row">
-        <div class="modal-form-group">
-          <label>Email</label>
-          <input type="email" id="fn-email">
-        </div>
-        <div class="modal-form-group">
-          <label>Teléfono</label>
-          <input type="tel" id="fn-telefono">
-        </div>
-      </div>
-      <div class="modal-form-group">
-        <label>Patrón</label>
-        <select id="fn-patron">
-          <option value="incluido">Con patrón profesional (incluido)</option>
-          <option value="propio">Sin patrón (cliente con licencia)</option>
-        </select>
-      </div>
-      <div class="modal-form-group">
-        <label>Peticiones especiales</label>
-        <textarea id="fn-peticiones" rows="2"></textarea>
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn btn-outline" onclick="cerrar('overlayNueva')">Cancelar</button>
-        <button type="submit" class="btn btn-ink" id="btnCrear">Confirmar reserva</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- DETALLE -->
-<div class="detail-overlay" id="overlayDetalle" onclick="if(event.target===this)cerrar('overlayDetalle')">
-  <div class="detail-panel">
-    <div class="detail-header">
-      <div>
-        <div class="detail-ref" id="d-ref">—</div>
-        <div id="d-estado-badge" style="margin-top:0.6rem"></div>
-      </div>
-      <button onclick="cerrar('overlayDetalle')" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-muted);line-height:1;padding:0.2rem 0.5rem">✕</button>
-    </div>
-    <div class="detail-importe-box">
-      <div class="detail-importe-label">Importe</div>
-      <div class="detail-importe" id="d-importe">—</div>
-    </div>
-    <div class="detail-row"><div class="detail-row-label">Cliente</div><div class="detail-row-val" id="d-nombre">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Email</div><div class="detail-row-val" id="d-email">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Teléfono</div><div class="detail-row-val" id="d-telefono">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Servicio</div><div class="detail-row-val" id="d-servicio">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Fecha</div><div class="detail-row-val" id="d-fecha">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Horario</div><div class="detail-row-val" id="d-horario">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Personas</div><div class="detail-row-val" id="d-huespedes">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Patrón</div><div class="detail-row-val" id="d-patron">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Idioma del cliente</div><div class="detail-row-val" id="d-idioma" style="font-size:0.88rem">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Peticiones</div><div class="detail-row-val" id="d-peticiones" style="font-size:0.88rem;color:var(--text-muted);font-style:italic">—</div></div>
-    <div class="detail-row"><div class="detail-row-label">Creada</div><div class="detail-row-val" id="d-created" style="font-size:0.82rem;color:var(--text-muted)">—</div></div>
-    <div style="margin-top:1.8rem;display:flex;gap:0.8rem">
-      <button class="btn btn-outline" style="flex:1" onclick="cerrar('overlayDetalle')">Cerrar</button>
-      <button class="btn btn-sm btn-danger" id="btn-detail-cancel" style="flex:1" onclick="cancelarDesdeDetalle()">Cancelar reserva</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast-container" id="toastContainer"></div>
 
 <script>
-const BACKEND = '';
-const SERVICIOS = {
-  medio_dia:    { nombre:'Medio Día',      precio:350, horario:'9:00–13:00 o 14:00–18:00', badge:'serv-medio' },
-  dia_completo: { nombre:'Día Completo',   precio:650, horario:'9:30 — 17:30',             badge:'serv-dia' },
-  sunset:       { nombre:'Puesta de Sol',  precio:280, horario:'18:00 — 21:00',            badge:'serv-sunset' }
+var BASE = window.location.origin;
+var reservas = [];
+
+var EXC_NAMES = {
+  medio_dia: 'Medio d\u00eda (4h)',
+  dia_completo: 'D\u00eda completo (8h)',
+  puesta_de_sol: 'Puesta de sol (3h)'
 };
-const IDIOMAS = { es:'Español', en:'English', de:'Deutsch' };
 
-let todasLasReservas = [];
-let filtroEstado = 'todas';
-let filtroServicio = null;
-let filtroVista = 'todas';
-let reservaActual = null;
+var EXC_PRECIOS = { medio_dia: 350, dia_completo: 650, puesta_de_sol: 280 };
 
-// ── AUTH ──
-const tok = {
-  get(){ return sessionStorage.getItem('bmc_admin_token'); },
-  set(t){ sessionStorage.setItem('bmc_admin_token',t); },
-  clear(){ sessionStorage.removeItem('bmc_admin_token'); }
-};
-function authH(){ return {'Content-Type':'application/json','Authorization':`Bearer ${tok.get()}`}; }
-
-async function hacerLogin(e) {
-  e.preventDefault();
-  const btn = document.getElementById('loginBtn');
-  const errDiv = document.getElementById('loginError');
-  const pass = document.getElementById('loginPass').value;
-  btn.disabled=true; btn.textContent='Comprobando…';
-  errDiv.style.display='none';
-  try {
-    const res = await fetch(`${BACKEND}/admin/login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pass})});
-    const data = await res.json();
-    if(res.ok && data.token){
-      tok.set(data.token);
-      document.getElementById('loginScreen').classList.add('hidden');
-      await cargarReservas();
-    } else {
-      errDiv.textContent = data.error || 'Contraseña incorrecta.';
-      errDiv.style.display = 'block';
-      document.getElementById('loginPass').value='';
-    }
-  } catch(err){
-    errDiv.textContent='Error de conexión.';
-    errDiv.style.display='block';
-  }
-  btn.disabled=false; btn.textContent='Acceder';
+function cargar() {
+  fetch(BASE + '/reservas')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      reservas = data;
+      actualizarStats();
+      renderTabla();
+      document.getElementById('lastUpdate').textContent = 'Actualizado: ' + new Date().toLocaleTimeString('es-ES');
+    })
+    .catch(function(){
+      document.getElementById('tablaBody').innerHTML = '<tr><td colspan="9" class="empty">Error al cargar. Comprueba la conexi\u00f3n.</td></tr>';
+    });
 }
 
-async function cerrarSesion(){
-  if(!confirm('¿Cerrar sesión?')) return;
-  try{ await fetch(`${BACKEND}/admin/logout`,{method:'POST',headers:authH()}); }catch(_){}
-  tok.clear();
-  document.getElementById('loginScreen').classList.remove('hidden');
-  document.getElementById('loginPass').value='';
-  document.getElementById('loginPass').focus();
+function actualizarStats() {
+  var hoy = new Date().toISOString().split('T')[0];
+  var confirmadas = reservas.filter(function(r){ return r.estado !== 'cancelada'; });
+  var hoyReservas = confirmadas.filter(function(r){ return r.fecha === hoy; });
+  var proximas = confirmadas.filter(function(r){ return r.fecha >= hoy; });
+  var ingresos = confirmadas.reduce(function(sum, r){
+    return sum + (EXC_PRECIOS[r.tipo_excursion] || 0);
+  }, 0);
+
+  document.getElementById('statTotal').textContent = reservas.length;
+  document.getElementById('statHoy').textContent = hoyReservas.length;
+  document.getElementById('statProximas').textContent = proximas.length;
+  document.getElementById('statIngresos').textContent = ingresos.toLocaleString('es-ES') + '\u20ac';
 }
 
-(async function initAuth(){
-  const t=tok.get();
-  if(!t) return;
-  try{
-    const res=await fetch(`${BACKEND}/admin/reservas`,{headers:authH()});
-    if(res.status===401){tok.clear();return;}
-    document.getElementById('loginScreen').classList.add('hidden');
-    todasLasReservas = await res.json();
-    todasLasReservas.sort((a,b)=>a.fecha>b.fecha?1:-1);
-    actualizarStats(todasLasReservas);
-    buscar();
-  } catch(_){}
-})();
+function renderTabla() {
+  var filtroEstado = document.getElementById('filtroEstado').value;
+  var filtroExc = document.getElementById('filtroExc').value;
+  var filtradas = reservas.filter(function(r){
+    if (filtroEstado && r.estado !== filtroEstado) return false;
+    if (filtroExc && r.tipo_excursion !== filtroExc) return false;
+    return true;
+  });
 
-// ── UTILS ──
-function formatFecha(f){ if(!f) return '—'; const[y,m,d]=f.split('-'); return `${d}/${m}/${y}`; }
-function formatFechaLarga(f){
-  if(!f) return '—';
-  return new Date(f+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-}
-function patronTxt(p){ return p === 'propio' ? 'Sin patrón (licencia propia)' : 'Con patrón incluido'; }
-function escape(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-// ── TOAST ──
-function toast(msg,type='success'){
-  const c=document.getElementById('toastContainer');
-  const t=document.createElement('div');
-  t.className=`toast ${type}`;
-  t.textContent=msg;
-  c.appendChild(t);
-  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(20px)'; t.style.transition='all 0.3s'; setTimeout(()=>t.remove(),300); },3500);
-}
-
-// ── STATS ──
-function actualizarStats(reservas){
-  const hoy=new Date().toISOString().split('T')[0];
-  const fin=new Date(Date.now()+7*86400000).toISOString().split('T')[0];
-  const mesActual = hoy.slice(0,7);
-  const conf=reservas.filter(r=>r.estado!=='cancelada');
-  document.getElementById('statHoy').textContent = conf.filter(r=>r.fecha===hoy).length || '—';
-  document.getElementById('statSemana').textContent = conf.filter(r=>r.fecha>hoy&&r.fecha<=fin).length || '—';
-  const mes = conf.filter(r=>r.fecha.startsWith(mesActual));
-  document.getElementById('statMes').textContent = mes.length || '—';
-  const ingresosMes=mes.reduce((s,r)=>s+(r.precio||0),0);
-  const ingresosTotal=conf.reduce((s,r)=>s+(r.precio||0),0);
-  document.getElementById('statIngresosMes').innerHTML = ingresosMes>0 ? ingresosMes.toLocaleString('es-ES')+'<em>€</em>' : '—';
-  document.getElementById('statIngresosTotal').textContent = `Temporada: ${ingresosTotal.toLocaleString('es-ES')}€`;
-  document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-}
-
-// ── BADGES ──
-function servBadge(tipo){
-  const s=SERVICIOS[tipo];
-  return `<span class="serv-badge ${s?.badge||''}">${s?s.nombre:tipo}</span>`;
-}
-function estadoBadge(estado){
-  return estado==='cancelada'
-    ? `<span class="badge badge-cancelled">Cancelada</span>`
-    : `<span class="badge badge-confirmed">Confirmada</span>`;
-}
-
-// ── RENDER ──
-function renderTabla(reservas){
-  const tbody=document.getElementById('tableBody');
-  const n = reservas.length;
-  document.getElementById('contadorResultados').textContent = n === 0 ? 'Sin resultados' : (n + ' resultado' + (n!==1?'s':''));
-  if(!n){
-    tbody.innerHTML=`<tr class="empty"><td colspan="10"><span class="empty-icon">◦</span>No hay reservas con este filtro.</td></tr>`;
+  if (filtradas.length === 0) {
+    document.getElementById('tablaBody').innerHTML = '<tr><td colspan="9" class="empty">\u26f5 No hay reservas que mostrar</td></tr>';
     return;
   }
-  tbody.innerHTML=reservas.map(r=>{
-    const s=SERVICIOS[r.tipo_servicio];
-    return `<tr onclick="abrirDetalle(${r.id})" style="cursor:pointer">
-      <td class="ref-cell">#BMC-${r.id}</td>
-      <td><div style="font-weight:500;color:var(--ink)">${escape(r.nombre)}</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px">${escape(r.email||'—')}</div></td>
-      <td>${servBadge(r.tipo_servicio)}</td>
-      <td style="font-weight:500;white-space:nowrap;color:var(--ink)">${formatFecha(r.fecha)}</td>
-      <td style="font-size:0.8rem;color:var(--text-muted);white-space:nowrap">${s?s.horario:'—'}</td>
-      <td style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ink);font-style:italic">${r.huespedes}</td>
-      <td style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em">${r.patron==='propio'?'Propio':'Incluido'}</td>
-      <td style="text-align:right" class="price-cell ${r.precio>0?'':'empty-price'}">${r.precio>0?r.precio+'€':'—'}</td>
-      <td>${estadoBadge(r.estado)}</td>
-      <td onclick="event.stopPropagation()">
-        <div class="action-btns">
-          <button class="btn-icon cancel" title="Cancelar" onclick="cancelarReserva(${r.id},this)" ${r.estado==='cancelada'?'disabled':''}>✕</button>
-        </div>
-      </td>
-    </tr>`;
+
+  var html = filtradas.map(function(r) {
+    var excName = EXC_NAMES[r.tipo_excursion] || r.tipo_excursion;
+    var patron = r.con_patron ? '\u2714 Incluido' : '\u2715 Licencia propia';
+    var cancelBtn = r.estado !== 'cancelada'
+      ? '<button class="btn-cancel" onclick="cancelar(' + r.id + ')">Cancelar</button>'
+      : '<span style="color:#9CA3AF;font-size:0.75rem;">-</span>';
+
+    return '<tr>' +
+      '<td><strong>#BM-' + r.id + '</strong></td>' +
+      '<td>' + r.nombre + '</td>' +
+      '<td><span class="badge ' + r.tipo_excursion + '">' + excName + '</span></td>' +
+      '<td>' + r.fecha + '</td>' +
+      '<td style="text-align:center">' + r.personas + '</td>' +
+      '<td><span class="patron-badge">' + patron + '</span></td>' +
+      '<td style="font-size:0.78rem;">' + (r.email || '-') + '<br><span style="color:#9CA3AF">' + (r.telefono || '') + '</span></td>' +
+      '<td><span class="badge ' + r.estado + '">' + (r.estado === 'confirmada' ? 'Confirmada' : 'Cancelada') + '</span></td>' +
+      '<td>' + cancelBtn + '</td>' +
+      '</tr>';
   }).join('');
+
+  document.getElementById('tablaBody').innerHTML = html;
 }
 
-// ── FILTROS ──
-function aplicarFiltros(reservas){
-  const hoy=new Date().toISOString().split('T')[0];
-  const fin=new Date(Date.now()+7*86400000).toISOString().split('T')[0];
-  const mesActual = hoy.slice(0,7);
-  let out = reservas;
-  if(filtroVista==='hoy')         out = out.filter(r=>r.fecha===hoy);
-  else if(filtroVista==='semana') out = out.filter(r=>r.fecha>=hoy&&r.fecha<=fin);
-  else if(filtroVista==='mes')    out = out.filter(r=>r.fecha.startsWith(mesActual));
-  if(filtroServicio) out = out.filter(r=>r.tipo_servicio===filtroServicio);
-  if(filtroEstado==='confirmadas') out = out.filter(r=>r.estado!=='cancelada');
-  if(filtroEstado==='canceladas')  out = out.filter(r=>r.estado==='cancelada');
-  return out;
+function cancelar(id) {
+  if (!confirm('\u00bfCancelar la reserva #BM-' + id + '?')) return;
+  fetch(BASE + '/reservas/' + id + '/cancelar', { method: 'PATCH' })
+    .then(function(){ cargar(); })
+    .catch(function(){ alert('Error al cancelar'); });
 }
 
-function activarFiltro(btn){
-  document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  filtroEstado=btn.dataset.filter;
-  buscar();
-}
-
-function filtrarPor(servicio, navEl){
-  filtroServicio=servicio;
-  filtroVista='todas';
-  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-  navEl.classList.add('active');
-  const s = SERVICIOS[servicio];
-  document.getElementById('pageTitle').innerHTML = s ? s.nombre : 'Reservas';
-  buscar();
-}
-
-function setVista(vista, navEl){
-  filtroVista = vista;
-  filtroServicio = null;
-  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
-  navEl.classList.add('active');
-  const titles = {todas:'Reservas',hoy:'<em>Hoy</em>',semana:'Próximos <em>7 días</em>',mes:'Este <em>mes</em>'};
-  document.getElementById('pageTitle').innerHTML = titles[vista] || 'Reservas';
-  buscar();
-}
-
-function buscar(){
-  const q=document.getElementById('searchInput').value.toLowerCase().trim();
-  let r=aplicarFiltros(todasLasReservas);
-  if(q) r=r.filter(x=>
-    x.nombre.toLowerCase().includes(q) ||
-    (x.email||'').toLowerCase().includes(q) ||
-    (x.telefono||'').includes(q) ||
-    String(x.id).includes(q)
-  );
-  renderTabla(r);
-}
-
-// ── CARGAR ──
-async function cargarReservas(){
-  try{
-    const res=await fetch(`${BACKEND}/admin/reservas`,{headers:authH()});
-    if(res.status===401){tok.clear();document.getElementById('loginScreen').classList.remove('hidden');return;}
-    todasLasReservas=await res.json();
-    todasLasReservas.sort((a,b)=>a.fecha>b.fecha?1:-1);
-    actualizarStats(todasLasReservas);
-    buscar();
-  } catch(_){
-    document.getElementById('tableBody').innerHTML=`<tr class="empty"><td colspan="10"><span class="empty-icon">◦</span>Error al cargar. Verifica conexión.</td></tr>`;
-  }
-}
-
-// ── CANCELAR ──
-async function cancelarReserva(id,btn){
-  if(!confirm(`¿Cancelar reserva #BMC-${id}? Esta acción no se puede deshacer.`)) return;
-  if(btn){btn.disabled=true;btn.textContent='…';}
-  try{
-    const res=await fetch(`${BACKEND}/admin/reservas/${id}/cancelar`,{method:'PATCH',headers:authH()});
-    if(!res.ok) throw new Error();
-    toast(`Reserva #BMC-${id} cancelada`);
-    await cargarReservas();
-  } catch(_){
-    toast('Error al cancelar.','error');
-    if(btn){btn.disabled=false;btn.textContent='✕';}
-  }
-}
-
-// ── MODAL NUEVA ──
-function abrirModalNueva(){
-  const hoy=new Date().toISOString().split('T')[0];
-  document.getElementById('fn-fecha').value=hoy;
-  document.getElementById('fn-servicio').value='';
-  document.getElementById('fn-nombre').value='';
-  document.getElementById('fn-email').value='';
-  document.getElementById('fn-telefono').value='';
-  document.getElementById('fn-huespedes').value='2';
-  document.getElementById('fn-patron').value='incluido';
-  document.getElementById('fn-peticiones').value='';
-  document.getElementById('fn-preview').style.display='none';
-  document.getElementById('overlayNueva').classList.add('open');
-  setTimeout(()=>document.getElementById('fn-nombre').focus(),150);
-}
-
-function actualizarPreviewNueva(){
-  const sv=document.getElementById('fn-servicio').value;
-  const prev=document.getElementById('fn-preview');
-  if(sv&&SERVICIOS[sv]){
-    const s=SERVICIOS[sv];
-    prev.style.display='block';
-    prev.innerHTML=`<strong>${s.nombre}</strong> · ${s.horario}<br><span class="price">${s.precio}€</span> <span style="font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase">precio total</span>`;
-  } else {
-    prev.style.display='none';
-  }
-}
-
-async function crearReservaManual(e){
-  e.preventDefault();
-  const btn=document.getElementById('btnCrear');
-  btn.disabled=true; btn.textContent='Creando…';
-  const datos={
-    nombre:document.getElementById('fn-nombre').value.trim(),
-    email:document.getElementById('fn-email').value.trim(),
-    telefono:document.getElementById('fn-telefono').value.trim(),
-    fecha:document.getElementById('fn-fecha').value,
-    tipo_servicio:document.getElementById('fn-servicio').value,
-    huespedes:parseInt(document.getElementById('fn-huespedes').value),
-    patron:document.getElementById('fn-patron').value,
-    peticiones:document.getElementById('fn-peticiones').value.trim()
-  };
-  try{
-    const res=await fetch(`${BACKEND}/admin/reservas`,{method:'POST',headers:authH(),body:JSON.stringify(datos)});
-    const data=await res.json();
-    if(data.success){
-      toast(`Reserva #BMC-${data.id} creada`);
-      cerrar('overlayNueva');
-      await cargarReservas();
-    } else {
-      toast(data.mensaje||'Error al crear','error');
-    }
-  } catch(_){
-    toast('Error de conexión.','error');
-  }
-  btn.disabled=false; btn.textContent='Confirmar reserva';
-}
-
-// ── DETALLE ──
-function abrirDetalle(id){
-  const r=todasLasReservas.find(x=>x.id===id);
-  if(!r) return;
-  reservaActual=r;
-  const s=SERVICIOS[r.tipo_servicio];
-  document.getElementById('d-ref').textContent=`#BMC-${r.id}`;
-  document.getElementById('d-estado-badge').innerHTML=estadoBadge(r.estado);
-  document.getElementById('d-importe').textContent=r.precio>0?r.precio+'€':'—';
-  document.getElementById('d-nombre').textContent=r.nombre;
-  document.getElementById('d-email').innerHTML=r.email?`<a href="mailto:${escape(r.email)}">${escape(r.email)}</a>`:'—';
-  document.getElementById('d-telefono').innerHTML=r.telefono?`<a href="tel:${escape(r.telefono)}">${escape(r.telefono)}</a>`:'—';
-  document.getElementById('d-servicio').innerHTML=servBadge(r.tipo_servicio);
-  document.getElementById('d-fecha').textContent=formatFechaLarga(r.fecha);
-  document.getElementById('d-horario').textContent=s?s.horario:'—';
-  document.getElementById('d-huespedes').textContent=r.huespedes+' persona'+(r.huespedes!==1?'s':'');
-  document.getElementById('d-patron').textContent=patronTxt(r.patron);
-  document.getElementById('d-idioma').textContent=IDIOMAS[r.idioma]||r.idioma||'—';
-  document.getElementById('d-peticiones').textContent=r.peticiones||'Sin peticiones especiales';
-  document.getElementById('d-created').textContent=r.created_at?new Date(r.created_at).toLocaleString('es-ES'):'—';
-  document.getElementById('btn-detail-cancel').style.display=r.estado==='cancelada'?'none':'inline-flex';
-  document.getElementById('overlayDetalle').classList.add('open');
-}
-
-async function cancelarDesdeDetalle(){
-  if(!reservaActual) return;
-  cerrar('overlayDetalle');
-  await cancelarReserva(reservaActual.id,null);
-}
-
-// ── EXPORT CSV ──
-function exportCSV(){
-  const r=aplicarFiltros(todasLasReservas);
-  const headers=['Ref','Nombre','Email','Teléfono','Servicio','Fecha','Horario','Personas','Patrón','Precio (€)','Estado','Idioma','Peticiones','Creada'];
-  const rows=r.map(x=>{
-    const s=SERVICIOS[x.tipo_servicio];
-    return [`#BMC-${x.id}`,x.nombre,x.email||'',x.telefono||'',s?s.nombre:x.tipo_servicio,x.fecha,s?s.horario:'',x.huespedes,patronTxt(x.patron),x.precio||0,x.estado,x.idioma||'',x.peticiones||'',x.created_at||'']
-      .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',');
-  });
-  const csv=[headers.join(','),...rows].join('\n');
-  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;
-  a.download=`bluemotion-reservas-${new Date().toISOString().split('T')[0]}.csv`;
-  a.click();URL.revokeObjectURL(url);
-  toast('CSV exportado');
-}
-
-// ── HELPERS ──
-function cerrar(id){ document.getElementById(id).classList.remove('open'); }
-function cerrarOverlay(e,id){ if(e.target===document.getElementById(id)) cerrar(id); }
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape') document.querySelectorAll('.overlay.open,.detail-overlay.open').forEach(o=>o.classList.remove('open'));
-});
-
-// ── AUTO REFRESH ──
-setInterval(()=>{ if(tok.get()) cargarReservas(); }, 60000);
+cargar();
+setInterval(cargar, 30000);
 </script>
 </body>
 </html>
