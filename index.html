@@ -201,34 +201,82 @@ footer{background:#071F36;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 
 /* MOBILE */
 @media(max-width:768px){
-  nav{padding:1rem 1.2rem}
+  /* NAV */
+  nav{padding:0.75rem 1rem}
   .nav-links{display:none}
-  .nav-logo{font-size:1.1rem}
-  .nav-cta{font-size:0.72rem;padding:0.45rem 0.9rem}
-  .hero{height:auto;padding:7rem 0 0}
-  .hero-content{padding:2rem 1.5rem 3rem;max-width:100%}
-  .hero-title{font-size:clamp(2.2rem,10vw,3.5rem)}
-  .hero-badges{gap:1.5rem}
-  .strip{padding:1rem 1.5rem;gap:1.5rem;overflow-x:auto;flex-wrap:nowrap}
-  .excursiones{padding:4rem 1.5rem}
+  .nav-logo{font-size:1rem}
+  .nav-cta{font-size:0.7rem;padding:0.4rem 0.75rem;letter-spacing:0.02em}
+  .lang-selector{gap:0.2rem}
+  .lang-btn{padding:0.28rem 0.45rem;font-size:0.65rem}
+
+  /* HERO */
+  .hero{height:auto;min-height:100vh;padding:5.5rem 0 0}
+  .hero-content{padding:2rem 1.2rem 2.5rem;max-width:100%}
+  .hero-title{font-size:clamp(2rem,9vw,3rem);line-height:1.1}
+  .hero-sub{font-size:0.88rem;line-height:1.7}
+  .hero-actions{gap:0.75rem;flex-direction:column}
+  .btn-solid,.btn-ghost{width:100%;text-align:center;padding:0.85rem 1.5rem;font-size:0.78rem}
+  .hero-badges{gap:1.2rem;margin-top:2rem}
+  .badge-num{font-size:1.5rem}
+  .badge-label{font-size:0.65rem}
+
+  /* STRIP */
+  .strip{padding:0.75rem 1.2rem;gap:1rem;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start}
+  .strip-item{font-size:0.72rem;white-space:nowrap}
+
+  /* SECTION TÍTULOS */
+  .section-title{font-size:clamp(1.7rem,7vw,2.4rem)}
+  .eyebrow{font-size:0.65rem;letter-spacing:0.2em}
+
+  /* EXCURSIONES */
+  .excursiones{padding:3rem 1.2rem}
+  .excursiones-inner .section-header{margin-bottom:2rem}
   .excursiones-grid{grid-template-columns:1fr;gap:1.2rem}
-  .barco{padding:4rem 1.5rem}
-  .barco-inner{grid-template-columns:1fr;gap:2.5rem}
-  .patron{padding:4rem 1.5rem}
-  .patron-inner{grid-template-columns:1fr;gap:2rem}
-  .ubicacion{padding:4rem 1.5rem}
-  .ubicacion-inner{grid-template-columns:1fr;gap:2rem}
-  .opiniones{padding:4rem 1.5rem}
-  .opiniones-grid{grid-template-columns:1fr;gap:1.2rem}
-  .reserva{padding:4rem 1.5rem}
-  .reserva-form{grid-template-columns:1fr;gap:0.8rem}
+  .exc-img{height:190px}
+
+  /* EL BARCO */
+  .barco{padding:3rem 1.2rem}
+  .barco-inner{grid-template-columns:1fr;gap:2rem}
+  .barco-img-main{height:200px}
+  .barco-img-sm{height:120px}
+  .barco-specs{grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.2rem}
+  .spec-item{padding:0.75rem}
+  .spec-label{font-size:0.6rem}
+  .spec-value{font-size:0.88rem}
+
+  /* PATRÓN */
+  .patron{padding:3rem 1.2rem}
+  .patron-inner{grid-template-columns:1fr;gap:1.5rem}
+  .patron-text .section-title{font-size:clamp(1.6rem,7vw,2.2rem)}
+  .patron-opt{padding:1rem 1.2rem}
+  .patron-opt h4{font-size:0.88rem}
+
+  /* UBICACIÓN */
+  .ubicacion{padding:3rem 1.2rem}
+  .ubicacion-inner{grid-template-columns:1fr;gap:1.5rem}
+  .ubicacion-map{height:240px}
+
+  /* OPINIONES */
+  .opiniones{padding:3rem 1.2rem}
+  .opiniones-grid{grid-template-columns:1fr;gap:1rem}
+  .opinion-card{padding:1.3rem}
+
+  /* RESERVA */
+  .reserva{padding:3rem 1.2rem}
+  .reserva-form{grid-template-columns:1fr;gap:0.75rem}
   .form-group.full{grid-column:span 1}
-  footer{padding:3rem 1.5rem 2rem}
-  .footer-top{grid-template-columns:1fr}
-  .footer-bottom{flex-direction:column;gap:0.8rem;text-align:center}
-  .chat-window{width:calc(100vw - 2rem);right:0;max-width:340px}
-  .chatbot{bottom:1.2rem;right:1rem}
-  .barco-specs{grid-template-columns:1fr 1fr}
+  .form-input{padding:0.75rem 0.9rem;font-size:0.85rem}
+
+  /* FOOTER */
+  footer{padding:2.5rem 1.2rem 1.5rem}
+  .footer-top{grid-template-columns:1fr;gap:2rem}
+  .footer-col h5{margin-bottom:0.75rem}
+  .footer-bottom{flex-direction:column;gap:0.5rem;text-align:center;font-size:0.65rem}
+
+  /* CHAT */
+  .chatbot{bottom:1rem;right:1rem}
+  .chat-window{width:calc(100vw - 2rem);right:0;max-width:360px;bottom:64px}
+  .chat-messages{height:240px}
 }
 </style>
 </head>
