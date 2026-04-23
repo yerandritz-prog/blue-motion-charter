@@ -66,7 +66,7 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .excursiones-inner{max-width:1100px;margin:0 auto}
 .section-header{margin-bottom:3.5rem}
 .eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem;font-weight:500}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:1rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:1rem;white-space:nowrap}
 .section-title em{font-style:italic;color:var(--navy)}
 .excursiones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .exc-card{background:var(--cream);border-radius:6px;overflow:hidden;border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s;cursor:pointer}
@@ -605,7 +605,7 @@ var LANG = {
     exc2:{name:'D\u00eda Completo',dur:'8 HORAS \u00b7 SALIDA 9:30H',btn:'Reservar'},
     exc3:{name:'Puesta de Sol',dur:'3 HORAS \u00b7 SALIDA 18:00H',btn:'Reservar'},
     barcoEyebrow:'La embarcaci\u00f3n', barcoTitle:'Nuestra <em>motora</em>',
-    patronEyebrow:'Patr\u00f3n', patronTitle:'\u00bfCon o sin <em>patr\u00f3n</em>?',
+    patronEyebrow:'Patr\u00f3n', patronTitle:'\u00bfCon o sin <em>patr\u00f3n?</em>',
     locEyebrow:'D\u00f3nde encontrarnos', locTitle:'En el coraz\u00f3n de <em>Palma</em>',
     mapLabel:'Nuestra ubicaci\u00f3n',
     revEyebrow:'Lo que dicen nuestros clientes', revTitle:'Opiniones <em>reales</em>',
@@ -646,7 +646,8 @@ var LANG = {
     formPlaceholders:['Tu nombre','tu@email.com','+34 600 000 000','','','','','Celebraci\u00f3n, alergias, ruta especial...'],
     formExc:['Medio d\u00eda (4h) \u00b7 350\u20ac','D\u00eda completo (8h) \u00b7 650\u20ac','Puesta de sol (3h) \u00b7 280\u20ac'],
     formPersons:['1-2 personas','3-4 personas','5-6 personas','7-8 personas'],
-    formPatron:['Con patr\u00f3n incluido (sin licencia)','Sin patr\u00f3n (tengo licencia n\u00e1utica)']
+    formPatron:['Con patr\u00f3n incluido (sin licencia)','Sin patr\u00f3n (tengo licencia n\u00e1utica)'],
+    opinionOrigins:['Madrid \u00b7 Julio 2025','M\u00fcnchen \u00b7 Agosto 2025','London \u00b7 Junio 2025']
   },
   en: {
     navLinks:['Trips','The Boat','Location','Reviews'],
@@ -661,7 +662,7 @@ var LANG = {
     exc2:{name:'Full Day',dur:'8 HOURS \u00b7 DEPARTURE 9:30',btn:'Book'},
     exc3:{name:'Sunset Trip',dur:'3 HOURS \u00b7 DEPARTURE 18:00',btn:'Book'},
     barcoEyebrow:'The vessel', barcoTitle:'Our <em>motorboat</em>',
-    patronEyebrow:'Skipper', patronTitle:'With or without <em>skipper</em>?',
+    patronEyebrow:'Skipper', patronTitle:'With or without <em>skipper?</em>',
     locEyebrow:'Find us', locTitle:'In the heart of <em>Palma</em>',
     mapLabel:'Our location',
     revEyebrow:'What our clients say', revTitle:'Real <em>reviews</em>',
@@ -702,7 +703,8 @@ var LANG = {
     formPlaceholders:['Your name','you@email.com','+34 600 000 000','','','','','Celebration, allergies, special route...'],
     formExc:['Half day (4h) \u00b7 350\u20ac','Full day (8h) \u00b7 650\u20ac','Sunset trip (3h) \u00b7 280\u20ac'],
     formPersons:['1-2 people','3-4 people','5-6 people','7-8 people'],
-    formPatron:['With skipper included (no licence needed)','Without skipper (I have a nautical licence)']
+    formPatron:['With skipper included (no licence needed)','Without skipper (I have a nautical licence)'],
+    opinionOrigins:['Madrid \u00b7 July 2025','Munich \u00b7 August 2025','London \u00b7 June 2025']
   },
   de: {
     navLinks:['Ausfl\u00fcge','Das Boot','Lage','Bewertungen'],
@@ -717,7 +719,7 @@ var LANG = {
     exc2:{name:'Ganzer Tag',dur:'8 STUNDEN \u00b7 ABFAHRT 9:30',btn:'Buchen'},
     exc3:{name:'Sonnenuntergang',dur:'3 STUNDEN \u00b7 ABFAHRT 18:00',btn:'Buchen'},
     barcoEyebrow:'Das Fahrzeug', barcoTitle:'Unser <em>Motorboot</em>',
-    patronEyebrow:'Skipper', patronTitle:'Mit oder ohne <em>Skipper</em>?',
+    patronEyebrow:'Skipper', patronTitle:'Mit oder ohne <em>Skipper?</em>',
     locEyebrow:'Wo wir sind', locTitle:'Im Herzen von <em>Palma</em>',
     mapLabel:'Unser Standort',
     revEyebrow:'Was unsere Kunden sagen', revTitle:'Echte <em>Bewertungen</em>',
@@ -758,7 +760,8 @@ var LANG = {
     formPlaceholders:['Ihr Name','sie@email.com','+34 600 000 000','','','','','Feier, Allergien, spezielle Route...'],
     formExc:['Halber Tag (4h) \u00b7 350\u20ac','Ganzer Tag (8h) \u00b7 650\u20ac','Sonnenuntergang (3h) \u00b7 280\u20ac'],
     formPersons:['1-2 Personen','3-4 Personen','5-6 Personen','7-8 Personen'],
-    formPatron:['Mit Skipper inklusive (kein F\u00fchrerschein n\u00f6tig)','Ohne Skipper (ich habe einen Bootsf\u00fchrerschein)']
+    formPatron:['Mit Skipper inklusive (kein F\u00fchrerschein n\u00f6tig)','Ohne Skipper (ich habe einen Bootsf\u00fchrerschein)'],
+    opinionOrigins:['Madrid \u00b7 Juli 2025','M\u00fcnchen \u00b7 August 2025','London \u00b7 Juni 2025']
   }
 };
 
@@ -837,6 +840,20 @@ window.setLang = function(l) {
   if(t.formPatron){var patOpts=document.querySelectorAll('.form-group:nth-child(7) option');patOpts.forEach(function(el,i){if(t.formPatron[i])el.textContent=t.formPatron[i];});}
   var bf=document.querySelector('.btn-full');if(bf)bf.textContent=t.formBtn;
   var rn=document.querySelector('.reserva-note');if(rn)rn.textContent=t.formNote;
+  // Selects del formulario por orden directo
+  var allSelects=document.querySelectorAll('.reserva-form select');
+  if(allSelects[0]&&t.formExc){var opts0=allSelects[0].querySelectorAll('option');opts0.forEach(function(el,i){if(t.formExc[i])el.textContent=t.formExc[i];});}
+  if(allSelects[1]&&t.formPersons){var opts1=allSelects[1].querySelectorAll('option');opts1.forEach(function(el,i){if(t.formPersons[i])el.textContent=t.formPersons[i];});}
+  if(allSelects[2]&&t.formPatron){var opts2=allSelects[2].querySelectorAll('option');opts2.forEach(function(el,i){if(t.formPatron[i])el.textContent=t.formPatron[i];});}
+  // Placeholder fecha y peticiones especiales
+  var dateInput=document.querySelector('.form-input[type=date]');if(dateInput&&t.formLabels&&t.formLabels[3])dateInput.closest('.form-group').querySelector('.form-label').textContent=t.formLabels[3];
+  var textInputs=document.querySelectorAll('.form-input[type=text]');if(textInputs[1]&&t.formPlaceholders&&t.formPlaceholders[7])textInputs[1].placeholder=t.formPlaceholders[7];
+  // Labels de todos los form-groups
+  if(t.formLabels){var allLabels=document.querySelectorAll('.form-label');allLabels.forEach(function(el,i){if(t.formLabels[i])el.textContent=t.formLabels[i];});}
+  // Opiniones - origen (las fechas y ciudades)
+  if(t.opinionOrigins){var origins=document.querySelectorAll('.opinion-origen');origins.forEach(function(el,i){if(t.opinionOrigins[i])el.textContent=t.opinionOrigins[i];});}
+  // Chat welcome - reiniciar con mensaje en idioma correcto
+  if(t.chatWelcome){var cm=document.getElementById('chatMessages');if(cm){var bots=cm.querySelectorAll('.chat-msg.bot');if(bots.length===1&&!bots[0].classList.contains('typing'))bots[0].innerHTML=t.chatWelcome;}}
   // Footer
   var ftag=document.querySelector('.footer-tagline');if(ftag&&t.footerTagline)ftag.textContent=t.footerTagline;
   var fexct=document.querySelector('.footer-col:nth-child(2) h5');if(fexct&&t.footerExcTitle)fexct.textContent=t.footerExcTitle;
