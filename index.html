@@ -921,7 +921,7 @@ window.scrollToReserva = function(){
 
 // ── CHAT ──────────────────────────────────────────────────────
 (function(){
-  var URL=window.location.origin;
+  var URL=window.location.protocol==='file:'?'https://blue-motion-charter-production.up.railway.app':window.location.origin;
   var open=false,loading=false,hist=[];
   function toggleChat(){open=!open;document.getElementById('chatWindow').classList.toggle('open',open);document.querySelector('.chat-badge').style.display=open?'none':'flex';}
   function addMsg(text,type){var c=document.getElementById('chatMessages');var d=document.createElement('div');d.className='chat-msg '+type;d.textContent=text;c.appendChild(d);c.scrollTop=c.scrollHeight;}
