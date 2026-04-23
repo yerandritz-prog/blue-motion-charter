@@ -66,7 +66,7 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .excursiones-inner{max-width:1100px;margin:0 auto}
 .section-header{margin-bottom:3.5rem}
 .eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem;font-weight:500}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:1rem;white-space:nowrap}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:1rem}
 .section-title em{font-style:italic;color:var(--navy)}
 .excursiones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .exc-card{background:var(--cream);border-radius:6px;overflow:hidden;border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s;cursor:pointer}
@@ -389,7 +389,7 @@ footer{background:#071F36;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
   <div class="patron-inner">
     <div class="patron-text">
       <p class="eyebrow">Patr&oacute;n</p>
-      <h2 class="section-title">&iquest;Con o sin patr&oacute;n?</h2>
+      <h2 class="section-title">&iquest;Con o sin <em>patr&oacute;n?</em></h2>
       <p>Adaptamos la excursi&oacute;n a tu experiencia y preferencias. Tanto si tienes licencia n&aacute;utica como si no, tenemos la opci&oacute;n perfecta para ti.</p>
       <p>Nuestro patr&oacute;n profesional conoce cada rinc&oacute;n de la costa sur de Mallorca y te llevar&aacute; a los lugares m&aacute;s espectaculares.</p>
     </div>
@@ -804,13 +804,13 @@ window.setLang = function(l) {
   // Barco
   var be=document.querySelector('.barco .eyebrow');if(be)be.textContent=t.barcoEyebrow;
   var bt=document.querySelector('.barco .section-title');if(bt)bt.innerHTML=t.barcoTitle;
-  var bdescs=document.querySelectorAll('.barco-text p');
+  var bdescs=document.querySelectorAll('.barco-text p:not(.eyebrow)');
   if(bdescs[0]&&t.barcoDesc1)bdescs[0].textContent=t.barcoDesc1;
   if(bdescs[1]&&t.barcoDesc2)bdescs[1].textContent=t.barcoDesc2;
   // Patrón
   var pe=document.querySelector('.patron .eyebrow');if(pe)pe.textContent=t.patronEyebrow;
   var pt=document.querySelector('.patron .section-title');if(pt)pt.innerHTML=t.patronTitle;
-  var pdescs=document.querySelectorAll('.patron-text p');
+  var pdescs=document.querySelectorAll('.patron-text p:not(.eyebrow)');
   if(pdescs[0]&&t.patronDesc1)pdescs[0].textContent=t.patronDesc1;
   if(pdescs[1]&&t.patronDesc2)pdescs[1].textContent=t.patronDesc2;
   var opts=document.querySelectorAll('.patron-opt');
@@ -819,7 +819,7 @@ window.setLang = function(l) {
   // Ubicación
   var le=document.querySelector('.ubicacion .eyebrow');if(le)le.textContent=t.locEyebrow;
   var lt=document.querySelector('.ubicacion .section-title');if(lt)lt.innerHTML=t.locTitle;
-  var lp=document.querySelector('.ubicacion-text > p');if(lp&&t.locDesc)lp.textContent=t.locDesc;
+  var lp=document.querySelector('.ubicacion-text p:not(.eyebrow)');if(lp&&t.locDesc)lp.textContent=t.locDesc;
   var ubis=document.querySelectorAll('.ubi-text');
   if(ubis[0]){if(t.ubi1title)ubis[0].querySelector('strong').textContent=t.ubi1title;if(t.ubi1desc)ubis[0].querySelector('span').textContent=t.ubi1desc;}
   if(ubis[1]){if(t.ubi2title)ubis[1].querySelector('strong').textContent=t.ubi2title;if(t.ubi2desc)ubis[1].querySelector('span').textContent=t.ubi2desc;}
